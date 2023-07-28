@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Survey Form</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <h1 id="title">Survey Form</h1>
+    <p id="description">Please fill this out.</p>
+    
+    <form id="survey-form" method="post" action='https://register-demo.freecodecamp.org'>
+
+<!-- First Section -->
+      <fieldset>
+        <!-- Name -->
+        <label id="name-label">Enter Your Name: <input id="name" name="name-label" type="text" placeholder="Name" required /></label>
+        <!-- Email -->
+        <label id="email-label">Enter Your Email: <input id="email" name="email-label" type="email" placeholder="Email" required /></label>
+        <!-- Number -->
+        <label id="number-label">Number of Pets: <input id="number" name="number-label" type="number" min=13 max=99 placeholder="How many?" required /></label>
+      </fieldset>
+
+<!-- Second Section -->
+      <fieldset>
+        <label for="cat-food">Preferred Pet Food?</label>
+        <label for="cat-food"><input id="dry-food" type="radio" name="cat-food" class="inline" value="1"/> Dry Food?</label>
+        <label for="cat-food"><input id="business-account" type="radio" name="cat-food" class="inline" value="2"/> Wet Food?</label>
+      </fieldset>
+
+<!-- Third Section -->
+      <fieldset>
+        <label>Do you like Cats or Dogs?
+          <select id="dropdown">
+            <option value="">(select one)</option>
+            <option value="1">Cats are the greatest!</option>
+            <option value="2">Cats are cool!</option>
+            <option value="3">Did you say dogs? You meant cats.</option>
+          </select>
+        </label>
+        <label for="bio">Anything else?:
+          <textarea id="bio" name="bio" rows="3" cols="30" placeholder="Comments? Concerns? Cats?"></textarea>
+        </label>
+      </fieldset>
+
+<!-- Fourth Section -->
+      <fieldset>
+        <label> What do your pets enjoy?
+          <div>
+          <input id="checkboxes" type="checkbox" required class="inline" value="1"/> Chew Toys 
+          </div>
+          <div>
+          <input id="checkboxes" type="checkbox" required class="inline" value="2"/> Cat Nip
+          </div>
+          <input id="checkboxes" type="checkbox" required class="inline" value="2"/> Scratching pad/post
+          </div>
+          <div>
+          <input id="checkboxes" type="checkbox" required class="inline" value="2"/> Smelly treats
+          </div>
+        </label>
+      </fieldset>
+
+<!-- Submit Button -->
+      <input id="submit" type="submit" value="Submit" />
+
+<!-- End of Form -->      
+    </form>
+  </body>
+</html>
