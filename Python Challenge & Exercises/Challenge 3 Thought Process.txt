@@ -79,14 +79,18 @@ This took me, again, a minute to work through.
     Value in position 4
 
     What I am looking at: (3, 6)
+    Position in array 3
     Value in position 6
 
     What I am looking at: (4, 11)
+    Position in array 4
     Value in position 11
 
     What I am looking at: (5, 23)
+    Position in array 5
     Value in position 23
     '''
+
 I knew that 0 was the index and 1 was the value but I still had to sum two different values together.
 Then it hit me, why not make two enumerate() calls and assign to two variables?!
 Brilliant.
@@ -137,7 +141,7 @@ def twoSum(array, sum):
                 if i[1] + j[1] == sum:
                     return i[1], j[1]
 
-This precludes all of my print statements and at the end of the day, this is... looks really simpl but took me 2 hours to solve.
+This precludes all of my print statements and at the end of the day, this is... looks really simple but took me 2 hours to solve.
 
 One day, I will be able to solve these quicker than this.
 
