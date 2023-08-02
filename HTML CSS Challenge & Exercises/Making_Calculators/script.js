@@ -13,12 +13,13 @@ function buttonClick(value){
     screen.innerText = buffer;
 }
 
-fucntion handleSymbol(symbol){
+function handleSymbol(symbol){
     switch(symbol){
         case 'C':
             buffer = '0';
             runningTotal = 0;
             break;
+
         case '=':
             if(previousOperator === null){
                 return
@@ -41,6 +42,8 @@ fucntion handleSymbol(symbol){
         case '-':
         case '×':
         case '÷':
+            handleMath(symbol);
+            break;
     }
 }
 
