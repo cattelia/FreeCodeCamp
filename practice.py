@@ -4,8 +4,9 @@
 
 
 
-
-
+#Sorting List of Tuples
+d = {"a":10, "b":1, "c":22}
+print(d.items())
 
 #Sorting Tuples in Dictionary
 d = {"a":10, "b":1, "c":22}
@@ -31,7 +32,7 @@ tmp = sorted(tmp, reverse=True)
 print(tmp)
 
 #Find the most common words in a file
-fhand = open("mobe.txt", "r") #open a file as read only
+fhand = open("mobe.txt") #open a file as read only
 counts = dict() #initilize an empty dict
 for line in fhand:
     words = line.split() #split by spaces
@@ -75,6 +76,7 @@ for (k,i) in d.items():
 '''
 
 
+
 #Filing Handling and Counting w/ Dictionary
 '''
 counts = dict()
@@ -91,6 +93,7 @@ for key in counts:
     if counts[key] > 10:
         print(key, counts[key])
 '''
+
 
 
 #Dictionary
@@ -121,6 +124,7 @@ print("This is the single for loop for\n {}".format(counts))
 '''
 
 
+
 #List Handling
 '''
 friends = ["Joseph", "Seth", "Ami", "Margot", "Jerry"]
@@ -141,11 +145,13 @@ c = a + b
 '''
 
 
+
 #Printing on the same line
 '''
 print("Hello ", end="")
 print("{}!".format(friends[0]))
 '''
+
 
 
 #Filing Handling
@@ -189,6 +195,7 @@ piece = float(piece)
 '''
 
 
+
 #Decorator Testing
 '''
 from functools import lru_cache
@@ -209,6 +216,7 @@ def increment(number):
 '''
 
 
+
 # *args Testing
 '''
 def check(*list):
@@ -227,6 +235,7 @@ for item in [3,41,12,9,74,15]:
         print("Loop: ", item, smallest) 
 print("Smallest: ", smallest)
 '''
+
 
 
 #CLEAN Python Input Handling
