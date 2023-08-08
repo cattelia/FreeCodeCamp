@@ -1,8 +1,21 @@
 #This is a new comment
 #Figure out why Visual Studio is not opening the most recent updates.
 # Vim is what you should be using. Even if it is weird.
+import urllib.request, urllib.parse, urllib.error
+
+fhand = urllib.urlopen('http://data.pr4e.org/romeo.txt')
+counts = dict()
+for line in fhand:
+    words = line.decode().split()
+    for word in words:
+        counts[word] = counts.get(word, 0) + 1
+print(counts)
+
+for line in fhand:
+    print(line.decode().strip())
 
 
+'''
 
 #Sorting List of Tuples
 d = {"a":10, "b":1, "c":22}
@@ -56,6 +69,8 @@ print( sorted ( [ (v,k) for k, v in c.items() ] )) #generator for all of the ele
 #Let's try it without sorted()
 print( [ (v,k) for k, v in c.items() ] )
 # [(10, 'a'), (1, 'b'), (22, 'c')]
+'''
+
 
 #Tuples with Dictionary Tuple Output
 '''
