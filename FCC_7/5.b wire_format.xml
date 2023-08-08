@@ -1,0 +1,65 @@
+'''
+
+{
+"name": "chuck"
+"phone": "123-456-7890"
+}
+
+-->  PHP Array
+--> Python Dictionary
+--> JavaScript Object
+--> Java Hashmap
+
+Agreeing on a "Wire Format"
+
+Python Dict -> (Serialized) -> Set in Wire Format -> (De-serialized) -> Java Hashmap
+
+XML is a way to do that.
+
+'''
+
+#XML - eXtensible Markup Language
+#Terminology
+'''
+Tags: indicate thhe beginning and ending of elements
+Attributes: Keyword/value pairs on the opening tag of XML
+Serial/Deserial: Convert data in one program into a common format that can be stored/shared between systems in a progrmaming language - independent manner.
+'''
+
+<person>
+    <name>Chuck</name>
+    <phone type='intl'> +1 123 456 7890 </phone>
+    <email hide='yes' />
+</person>
+
+<a>
+    <b>X</b>
+    <c>
+        <d>Y</d>
+        <e>Z</e>
+    </c>
+<a>
+
+    //
+
+/a/b    X
+/a/c/d  Y
+/a/c/e  Z
+
+#XML SCHEMA
+
+XML Document
+<person>
+    <lastname>Chuck</name>
+    <phone type='intl'> +1 123 456 7890 </phone>
+    <email hide='yes' />
+</person>
+    
+XML Schema Contract
+<xs:complexType name = "person">
+    <xs:sequence>
+        <xs:element name="lastname" type="xs:string"/>
+        <xs:element name="phone" type="xs:string"/>
+        <xs:element name="email" type="xs:string"/>
+    </xs:sequence>
+</xs:complexType>
