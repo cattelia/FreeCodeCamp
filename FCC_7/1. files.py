@@ -36,3 +36,21 @@ cpos = str.find(':')
 piece = str[cpos+1:].strip(" ")
 piece = float(piece)
 #print("{}%".format(piece))
+
+
+
+file = open("Deck.txt", "r+")
+for line in file:
+	line = line[2:]
+	file.write(line)
+file.close()
+
+
+import fileinput
+
+#Rewrite a MTG Deck list to remove "1 " and rewrite over line.
+with fileinput.input("Deck.txt", inplace=True) as file:
+	for line in file:
+		new_line = line.replace(line, line[2:])
+		print(new_line, end='')
+fileinput.close()
