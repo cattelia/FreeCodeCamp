@@ -58,3 +58,17 @@ an.party()
 #Remember dir() and type()?
 print(type(an)) #>>> <class '__main__.PartyAnimal'>
 print(dir(an))  #>>> ['__class__', '__delattr__', ..., 'party', 'x'] Notice our party method and attribute/'x' is there.
+
+#FreeCodeCamp Practice: What will print?
+class PartyAnimal:
+    x = 0
+    def party(self):
+        self.x = self.x + 2
+        print(self.x)
+
+an = PartyAnimal()
+an.party()
+an.party()
+
+# 2
+# 4
