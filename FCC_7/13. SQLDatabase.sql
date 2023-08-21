@@ -79,17 +79,25 @@ INSERT INTO Track (title, rating, len, count, album_id, genre_id)
     VALUES ('Who Made Who', 5, 207, 0, 1, 2) ;
     
 
+#=== JOIN || ON  Commands ===#
+
 SELECT Album.title, Artist.name FROM Album JOIN Artist 
     ON Album.artist_id = Artist.id
 
 SELECT Album.title, Album.artist_id, Artist.id, Artist.name 
     FROM Album JOIN Artist ON Album.artist_id = Artist.id
 
+#=== JOIN without ON clause ===#
+
 SELECT Track.title, Track.genre_id, Genre.id, Genre.name 
     FROM Track JOIN Genre   
 
+#=== Showing Duplicated Data ===#
+
 SELECT Track.title, Genre.name FROM Track JOIN Genre 
     ON Track.genre_id = Genre.id
+
+#=== JOIN from Multiple Tables ===#
 
 SELECT Track.title, Artist.name, Album.title, Genre.name 
 FROM Track JOIN Genre JOIN Album JOIN Artist 
