@@ -3,11 +3,11 @@
 Data Source -> Gather -> Raw Data -> Clean/Process  -> Visualize
                                                     -> Analyze
 
-                                                    
-Hadoop.apache.org
-Spark.apache.org
-AWS.amazon.com/redshift
-community.pentaho.com
+Different data mining technologies:                                                
+    Hadoop.apache.org
+    Spark.apache.org
+    AWS.amazon.com/redshift
+    community.pentaho.com
 '''
 
 '''
@@ -33,6 +33,21 @@ Visualize the resulting network
 Retrieve a page
 Look through the page for links
 Add the links to a list of "to be retrieved" sites
-Repeat...
+Repeat
+'''
+
+#Web Crawler Policy
+'''
+Selection policy
+Re-visit policy
+Politeness policy
+Parallelization policy
+'''
+
+#robots.txt
+'''
+A way for a website to communicate with web crawlers
+An informal and voluntary standard
+Sometimes folks make a "Spider Trap" to catch "bad" spiders
 '''
 
