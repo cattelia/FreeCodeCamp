@@ -7,7 +7,7 @@ def add_time(start, duration, day="Monday"):
     >>> 1:08 AM
     '''
 
-    #Make day entry lowercase, always.
+    #Make day entry lowercase, always. I disrespect your case sensitivity.
     day = day.lower()
     week = [
         "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
@@ -29,26 +29,25 @@ def add_time(start, duration, day="Monday"):
     else:
         startMinute += durationMinute
 
-    #24-hour conversion
+    #24-hour Conversion & Calculating hours
     if start[1] == "PM" and startHour != 12:
-        startHour += 12
+        startHour += durationHour + 12
+    else:
+        startHour += durationHour
+
+
+    #Convert back (Ignoring AM/PM)
+    if startHour > 12 and startHour != 12:
+        startHour -= 12
     else:
         pass
-
-    #Calculating hours
-    startHour += durationHour
-
-
-
-
-    
 
 
     #Printed Output
     if startMinute < 10:
-        print("The current time: {}:0{}".format(str(startHour), str(startMinute)))
+        print("The current time: {}:0{} {}".format(str(startHour), str(startMinute), start[1]))
     else:
-        print("The current time: {}:{}".format(str(startHour), str(startMinute)))
+        print("The current time: {}:{} {}".format(str(startHour), str(startMinute), start[1]))
 
 
 '''
@@ -79,9 +78,17 @@ def add_time(start, duration, day="Monday"):
 #add_time("12:16 PM", "2:58") #>>> 13:14
 
 #Calculation Check
-add_time("11:06 PM", "2:02") #>>> 25:06
-add_time("12:16 PM", "2:02") #>>> 14:18
-add_time("1:02 PM", "2:02")  #>>> 15:04
-add_time("12:00 PM", "0:00") #>>> 12:00
-add_time("12:00 PM", "000:00") #>>> 12:00
-add_time("11:59 PM", "0:01") #>>> 12:00
+#add_time("11:06 PM", "2:02") #>>> 25:08
+#add_time("12:16 PM", "2:02") #>>> 14:18
+#add_time("1:02 PM", "2:02")  #>>> 15:04
+#add_time("12:00 PM", "0:00") #>>> 12:00
+#add_time("12:00 PM", "000:00") #>>> 12:00
+#add_time("11:59 PM", "0:01") #>>> 12:00 #FAILED 24:00, not 12:00. Fixed.
+
+#Test Calculations
+add_time("3:00 PM", "3:10")
+add_time("11:43 AM", "00:20")
+
+add_time("11:30 AM", "2:32", "Monday")
+
+add_time("10:10 PM", "3:30") #1:40 AM (next day)
