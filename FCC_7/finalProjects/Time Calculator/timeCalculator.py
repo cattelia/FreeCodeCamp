@@ -7,6 +7,8 @@ def add_time(start, duration, day="Monday"):
     >>> 1:08 AM
     '''
 
+    #Make day entry lowercase, always.
+    day = day.lower()
     week = [
         "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
     ]
@@ -16,66 +18,70 @@ def add_time(start, duration, day="Monday"):
     startHour = int(start[0].split(":")[0])
     startMinute = int(start[0].split(":")[1])
 
-    #print("Start hour: {}".format(startHour))
-    #print("Start minute: {}".format(startMinute))
-
     #Get hour and minute from duration
     durationHour = int(duration.split(":")[0])
     durationMinute = int(duration.split(":")[1])
 
+    #Calculating minutes
+    if startMinute + durationMinute >= 60:
+        startHour += 1
+        startMinute = (startMinute + durationMinute) % 60
+    else:
+        startMinute += durationMinute
 
-    
     #24-hour conversion
     if start[1] == "PM" and startHour != 12:
         startHour += 12
     else:
         pass
+
+    #Calculating hours
+    startHour += durationHour
+
+
+
+
     
+
+
     #Printed Output
     if startMinute < 10:
         print("The current time: {}:0{}".format(str(startHour), str(startMinute)))
     else:
         print("The current time: {}:{}".format(str(startHour), str(startMinute)))
-    
+
 
 '''
-from datetime import datetime, timedelta
+    Calculations:
+    #Same Day w/o Date
+    "3:00 PM", "3:10"               >>> 6:10 PM
+    "11:43 AM", "00:20"             >>> 12:03 PM
 
-    datetime_original = datetime(year=2006, month=11, day=23, hour=10, minute=40)
-    print("\nOriginal datetime: ", datetime_original, "\n")
-    datetime_original = datetime(year=2023, hour=10, minute=40)
-    print("\nOriginal datetime: ", datetime_original, "\n")
-     
-    # Time to add or subtract
-    time_delta = timedelta(hours=10, minutes=23, seconds=45)
-    print("Timedelta: ", time_delta, "\n")
-     
-    # Add
-    datetime_new = datetime_original + time_delta
-    print("After adding time: ", datetime_new, "\n")
-    
-    print("Time delta {}".format(timedelta()))
+    #Same Day w/ Date
+    "11:30 AM", "2:32", "Monday"    >>> 2:02 PM, Monday
+
+    #Next Day
+    "10:10 PM", "3:30"              >>> 1:40 AM (next day)
+
+    #Few Days
+    "11:43 PM", "24:20", "tueSday"  >>> 12:03 AM, Thursday (2 days later)
+    "6:30 PM", "205:12"             >>> 7:42 AM (9 days later)
+ 
 '''
 
-'''
-    We are going to convert a 12-hour clock to a 24-hour clock.
-    AM: 0:00 - 11:59    >>> time as written
-    PM: ]12:00[ - 23:59   >>> 12 + remainder after 12 up to 24
+#24-hour Conversion Check (Not worried about minutes)
+#add_time("11:06 PM", "2:02") #>>> 23:06
+#add_time("12:16 PM", "2:02") #>>> 12:16
+#add_time("1:02 PM", "2:02")  #>>> 13:02
 
-        Pull the time in hours and minutes and convert it to an integer.
-        Convert those numbers to a 24-hr clock:
-            - Hours 1 - 11 AM, stays the same
-            - Hour 12 PM, stays the same
-            - Hours 1 - 11 PM, time + 12
+#Minute Check (Not worried about hours)
+#add_time("1:02 PM", "2:58")  #>>> 14:00
+#add_time("12:16 PM", "2:58") #>>> 13:14
 
-    #this needs to be tackled later. Get the time down first.
-    Unless otherwise stated, we are starting on Monday.
-    If the time rolls from 23:49 -> 0/24, then the day becomes the next day, Tuesday.
-    However, if the time rolls from 11:50 - 12:00, it is still the same day. #duh
-
-    
-'''
-
-add_time("11:06 PM", "2:02")
-add_time("12:16 PM", "2:02")
-add_time("1:02 PM", "2:02")
+#Calculation Check
+add_time("11:06 PM", "2:02") #>>> 25:06
+add_time("12:16 PM", "2:02") #>>> 14:18
+add_time("1:02 PM", "2:02")  #>>> 15:04
+add_time("12:00 PM", "0:00") #>>> 12:00
+add_time("12:00 PM", "000:00") #>>> 12:00
+add_time("11:59 PM", "0:01") #>>> 12:00
