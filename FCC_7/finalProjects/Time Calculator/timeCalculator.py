@@ -30,6 +30,7 @@ def add_time(start, duration, day=""):
 
         #Using the position in the array, multiple that by how many minutes there are in a day so we can know exactly where we are in the week.
         time = week.index(day) * 1440 #1440 minutes in a day
+    
 
         #Converting and splitting the STR: start into multi-assignment variables
         #   In: "3:00 PM" 
@@ -42,10 +43,13 @@ def add_time(start, duration, day=""):
         #Convert anytime after 12PM to the 24-clock cycle
         if sub == "PM":
             hour += 12
+
         #Convert hours to minutes and assign it to time
         time += hour * 60
+        print("Time {}\nHour {}".format(time, hour))
         #Add the remaining minutes to time
         time += minute
+        print("Time {}\nMinute {}".format(time, minute))
 
         return time
 
@@ -126,6 +130,7 @@ def add_time(start, duration, day=""):
 add_time("3:00 PM", "3:10")
 # Returns: 6:10 PM                              >>> Pass
 
+'''
 add_time("11:30 AM", "2:32", "Monday")
 # Returns: 2:02 PM, Monday                      >>> Pass  
 
@@ -140,3 +145,4 @@ add_time("11:43 PM", "24:20", "tueSday")
 
 add_time("6:30 PM", "205:12")
 # Returns: 7:42 AM (9 days later)               >>> FAIL, 7:42 AM
+'''
