@@ -23,22 +23,20 @@ def add_time(time, duration, day=""):
         timeHour = int(timeHour) + 12
         #print(timeHour)                                                     ###PRINT###
         current = (timeHour * 60) + int(timeMinute)
-        #print(current)
+        #print(current)                                                      ###PRINT###
     else:
         current = (int(timeHour) * 60) + int(timeMinute)
 
 
-    #current = (int(timeHour) * 60) + int(timeMinute)
     #print("Time (min): {:>10}".format(current))                             ###PRINT###
     duration = (int(durationHour) * 60) + int(durationMinute)
     #print("Duration (min): {:>6}".format(duration))                         ###PRINT###
     total = current + duration
     #print("Total (min): {:>9}".format(total))                               ###PRINT###
-    #print(isPM, duration, total)                                                             ###PRINT###
 
 
-    #!!!This is how many days after the entered date!!! NOT how many days have gone by
     day = int(total / 1440) % 7
+    dayPassed = int(total/1440)
     #print("Day: {:>13}".format(day))                                        ###PRINT###
     remainder = total % 1440    
     #print("Remainder: {:>7}".format(remainder))                             ###PRINT###
@@ -46,8 +44,8 @@ def add_time(time, duration, day=""):
     #print("Hours: {:>11}".format(hour))                                     ###PRINT###
     minute = remainder % 60
     #print("Minutes: {:>9}".format(minute))                                  ###PRINT###
-    #print("isPM:", isPM)                                                    ###PRINT### 
-    print(day, remainder, hour, minute)
+
+
 
     #Change time of day for 12
     # 12 AM
@@ -69,29 +67,38 @@ def add_time(time, duration, day=""):
     #print("isPM:", isPM)                                                    ###PRINT### 
 
 
+    #Output for " (nextday)" or " (x days later)". Space has to be there for formatting purposes
+    if dayPassed == 0:
+        dayOutput = ""
+    elif dayPassed == 1:
+        dayOutput = " (next day)"
+    else:
+        dayOutput = " ({} days later)".format(str(dayPassed))
+
     result = "{}:{:02d} {}".format(hour, minute, "PM" if isPM else "AM")
-    if daypassedin:
-            result = result + ", " + week[day+1].capitalize()
-    print(result + "\n")                                                    ###PRINT###
+           
+    if daypassedin and dayPassed == 0:
+        result = "{}, {}".format(result, week[day].capitalize())
+        #result = result + ", " + week[day + 1].capitalize()
+    elif daypassedin:
+        result = "{}, {}".format(result, week[day + 1].capitalize())
+    else:
+        result
+
+    print(result + dayOutput + "\n")                                                    ###PRINT###
  
-
-
-#add_time("3:00 PM", "3:10")
-# Returns: 6:10 PM
-#add_time("11:00 PM", "1:10")
-# Returns: 12:10 AM
-
-#add_time("11:30 AM", "2:32", "Monday")
+#!!!! Test Cases !!!!#
+add_time("11:30 AM", "2:32", "Monday")
 # Returns: 2:02 PM, Monday
 
-#add_time("11:43 AM", "00:20")
+add_time("11:43 AM", "00:20")
 # Returns: 12:03 PM
 
-#add_time("10:10 PM", "3:30")
+add_time("10:10 PM", "3:30")
 # Returns: 1:40 AM (next day)
 
 add_time("11:43 PM", "24:20", "tueSday")
 # Returns: 12:03 AM, Thursday (2 days later)
 
-#add_time("6:30 PM", "205:12")
+add_time("6:30 PM", "205:12")
 # Returns: 7:42 AM (9 days later)
