@@ -6,10 +6,7 @@ def add_time(time, duration, day=""):
     week = [ "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday" ]
 
     #Check and correct subscript on isPM
-    if sub == "AM":
-        isPM = False
-    else:
-        isPM = True
+    isPM = False if sub == "AM" else True
 
     #Check if a day was entered or assign to "monday"
     daypassedin = False
@@ -88,6 +85,7 @@ def add_time(time, duration, day=""):
     print(result + dayOutput + "\n")                                                    ###PRINT###
  
 #!!!! Test Cases !!!!#
+'''
 add_time("11:30 AM", "2:32", "Monday")
 # Returns: 2:02 PM, Monday
 
@@ -102,3 +100,45 @@ add_time("11:43 PM", "24:20", "tueSday")
 
 add_time("6:30 PM", "205:12")
 # Returns: 7:42 AM (9 days later)
+'''
+
+add_time("3:30 PM", "2:12")
+#        expected = "5:42 PM"
+
+add_time("11:55 AM", "3:12")
+#        expected = "3:07 PM"
+
+add_time("9:15 PM", "5:30")
+#        expected = "2:45 AM (next day)"
+
+add_time("11:40 AM", "0:25")
+#        expected = "12:05 PM"
+
+add_time("2:59 AM", "24:00")
+#        expected = "2:59 AM (next day)"
+
+add_time("11:59 PM", "24:05")
+#        expected = "12:04 AM (2 days later)"
+
+add_time("8:16 PM", "466:02")
+#        expected = "6:18 AM (20 days later)"
+
+add_time("5:01 AM", "0:00")
+#        expected = "5:01 AM"
+
+add_time("3:30 PM", "2:12", "Monday")
+#        expected = "5:42 PM, Monday"
+
+add_time("2:59 AM", "24:00", "saturDay")
+#        expected = "2:59 AM, Sunday (next day)"
+# -->                2:59 AM, Wednesday (next day)
+
+add_time("11:59 PM", "24:05", "Wednesday")
+#        expected = "12:04 AM, Friday (2 days later)"
+#-->                 12:04 AM, Thursday (2 days later)
+
+add_time("8:16 PM", "466:02", "tuesday")
+#        expected = "6:18 AM, Monday (20 days later)"
+#    result = "{}, {}".format(result, week[day + 1].capitalize())
+#                                     ~~~~^^^^^^^^^
+#
