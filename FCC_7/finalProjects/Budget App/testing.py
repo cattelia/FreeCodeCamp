@@ -5,24 +5,39 @@ class Test:
     global balance
     balance = 0
    
-    def __init__(self):
-        print("Hello")
-   
+    def __init__(self, name):
+        #Collect and assign the instance name
+        self.name = name
+    
+
+    def __str__(self) -> str:
+        #return self.__class__.__name__ FAILED >>> This returned the class Name
+        #header = "*************{}*************".format(self.name) FAILED >>> this did not take into account the maximum length of characters allowed.
+        header = self.name.center(30, "*")
+        return header
+
+
     @staticmethod
     def update_balance(amount, add=balance):
         #If from func1 (deposit), amount
         #if from func2 (withdraw), -amount
+
         global balance
         balance = add + amount
         return balance
+    
    
     def func1(self, amount):
         #acting like deposit
+
         Test.update_balance(amount)
         print("You deposited {} amount".format(amount))
+
    
     def func2(self, amount):
         #acting like withdraw
+
+        global balance
         if balance < amount:
             print("There is not enough in the bank")
             return False
@@ -30,17 +45,60 @@ class Test:
             Test.update_balance(-amount)
             return True
    
+
     def show_balance(self):
         print(balance)
+
+
+    def check_funds(self, amount):
+        # Define global variable within function
+        # Check if there is enough in the bank versus how much we want to take out
+        # If not enough in the Bank, return False if there is, return True
+        # THIS IS CALLED AND CHECKED IN DEPOSIT() AND WITHDRAWAL()
+        global balance
+
+        if balance < amount:
+            print("There is not enough to cover ${}.00".format(amount))
+            return False
+        else:
+            Test.update_balance(-amount)
+            return True
+
    
-a = Test()
+a = Test("Food")
 a.show_balance()
 a.func1(10)
-a.show_balance()
+a.show_balance() 
+print(a)
 
-################################################################
+
+################################################################################################################################
+global name
+name = 0
+
+def checking(amount):
+    global name
+    if name < amount:
+        return False
+    else:
+        Test.update_balance(-name)
+        return True
+    
+print(checking(10))
 
 '''
+#>>>Calling the name of the Class<<<
+class fruit:
+
+    def __init__(self, fruit):
+        self.fruit = fruit
+
+a = fruit("peach")
+print(a.__class__)
+print(a.__class__.__name__)
+print(type(a).__name__)
+
+
 
 deposit_ledger = {}
 withdraw_ledger = {}
@@ -91,7 +149,7 @@ food = Test()
 food.setVar(var)
 '''
 
-################################################################
+################################################################################################################################
 
 '''
     def __init__(self):
