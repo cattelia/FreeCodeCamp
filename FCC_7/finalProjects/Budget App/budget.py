@@ -1,9 +1,7 @@
 class Bank:
         # Initialize global variables
-    global balance
+    global balance, ledger
     balance = 0
-
-    global transaction_ledger
     ledger = {}
 
 
@@ -24,23 +22,28 @@ class Bank:
     def deposit(self, amount, description=""):
         # Add the monies to the global balance counter using Bank.update_balance(). It will always be positive.
         ''' Still need to append {description: amount} to the transaction_ledger '''
+
+        Bank.check_funds(amount)
+        print("Depositing ${}.00".format(amount))
         Bank.update_balance(amount)
-        pass
 
 
     def withdraw(self, amount, description=""):
         # Check if there is enough in the bank versus how much we want to take out using Bank.check_funds()
-        ''' Still need to include this in the log when we print the Class instance '''
+        ''' Still need to include this in the ledger when we print the Class instance '''
 
-        if Bank.check_funds(amount) == False:
-            print("There is not enough to cover ${}.00".format(amount))
+        if Bank.check_funds(-amount) == False:
+            print("Insufficient funds. Balance: ${}.00\nYou are trying to withdraw ${}.00".format(balance, amount))
+            return False
         else:
-            print("Withdrawing -${}.00".format(amount))
+            print("Withdrawing ${}.00".format(amount))
+            return True
 
 
 
     def get_balance(self):
         # Return the global balance variable
+
         print("${}.00".format(balance))
         return balance
 
@@ -48,29 +51,38 @@ class Bank:
     def transfer(self):
         pass
 
+
     @staticmethod
     def check_funds(amount):
         # Define global variable within function
         # Check if there is enough in the bank versus how much we want to take out
         # If not enough in the Bank, return False if there is, return True
-        # Called in Deposit() and Withdraw()
-        ''' This is incomplete - this will work for Withdraw but not Deposit'''
+        # Called in Transfer() and Withdraw()
 
         global balance
+        cache = amount + balance
 
-        if balance < amount:
+        #False if cache < balance else True
+        if cache <= balance:
             return False
         else:
-            Bank.update_balance(-amount)
             return True
+
+        
 
 
     @staticmethod
-    def update_balance(amount, add=balance):
+    def update_balance(amount):
             # If deposit(), amount
             # If withdraw(), -amount
         global balance
-        balance = add + amount
+        print("Current ${}".format(balance))
+
+        #cache = add + amount
+        #print("Cache ", cache)
+        #balance = cache
+
+        print("Updated ${}".format(balance))
         return balance
 
 
@@ -84,7 +96,9 @@ def create_spend_chart(categories):
     pass
 
 food = Bank("Food")
-food.get_balance()
-print(food)
-cat = Bank("Cat")
-print(cat)
+#food.get_balance()
+print(balance) #0
+
+food.deposit(10) #10
+#food.deposit(1) #11
+print(balance) #10
