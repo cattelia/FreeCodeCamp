@@ -4,7 +4,7 @@ class Bank:
     balance = 0
 
     global transaction_ledger
-    transaction_ledger = {}
+    ledger = {}
 
 
     def __init__(self, name) -> None:
