@@ -1,26 +1,30 @@
 class Bank:
 
 
-    def __init__(self, name, balance=0, ledger={}) -> None:
+    def __init__(self, name, balance=0, ledger={}):
         # Collect and assign the instance name, balance, and ledger
+        #   self declared at initialization
+        #   balance defaults to 0/Zero
+        #   ledger defaults to dictionary object type
         self.name = name
         self.balance = balance
         self.ledger = ledger
-        #self.transfer = transfer(self)
 
 
     def __str__(self):
         # str.center(#Limit, fillChar)
         #   *************Food*************
         #   *************Cat**************
-        #   Still need the rest of the ledger (This could potentially print to a log?)
+        ''' Still need the rest of the ledger (This could potentially print to a log?) '''
+        ''' Dont start working on until ledger is working '''
+
         header = self.name.center(30, "*")
         return header
 
 
     def deposit(self, amount, description=""):
         # Add the monies to the balance counter using Bank.update_balance(). It will always be positive.
-        ''' Still need to append {description: amount} to the transaction_ledger '''
+        ''' Still need to append {description: amount} to the ledger '''
 
         print("Depositing ${}.00 in {}".format(amount, self.name))
         self.update_balance(amount)
@@ -28,7 +32,7 @@ class Bank:
 
     def withdraw(self, amount, description=""):
         # Check if there is enough in the bank versus how much we want to take out using Bank.check_funds()
-        ''' Still need to include this in the ledger when we print the Class instance '''
+        ''' Still need to append {description: amount} to the ledger '''
 
         if self.check_funds(amount) == False:
             print("Insufficient funds")
@@ -48,7 +52,6 @@ class Bank:
 
 
 
-
     def transfer(self, amount, category):
         # Instance (self) to send money to another Bank instance (category) of a certain amount
         # Check that (self) has enough, if not return False
@@ -65,8 +68,6 @@ class Bank:
 
 
 
-
-
     def check_funds(self, amount):
         # Define global variable within function
         # Check if there is enough in the bank versus how much we want to take out
@@ -79,9 +80,6 @@ class Bank:
             return True
         
 
-        
-
-
 
     def update_balance(self, amount):
             # If deposit() -> balance + amount
@@ -91,7 +89,9 @@ class Bank:
         return self.balance
 
 
-def create_spend_chart(categories):
+
+def create_spend_chart(categories=""):
+    # Function outside of the class Bank
     '''
     In: List of categories
     Out: ASCII Chart representing how much was spent in each category based on percentage

@@ -1,5 +1,4 @@
-
-################################################################
+################################################################################################################################
 
 class Test:
     global balance
@@ -74,6 +73,61 @@ print(a)
 
 ################################################################################################################################
 
+class Test:
+
+    def __init__(self, name, balance=0, ledger=[]):
+
+        self.ledger = ledger
+        self.name = name
+        self.balance = balance
+
+
+    def deposit(self, amount, description = ""):
+        ''' This will need to be broken by REGEX to get to the pieces that I want '''
+
+        line = '{"amount": ' + str(amount) + ', "description": ' + description + '}'
+        self.ledger.append(line)
+        print(self.ledger)
+
+    def get_ledger(self):
+        print(self.name.center(30, "*"))
+        print(self.ledger)
+    
+
+    def clear(self):
+        self.balance = 0
+        self.ledger = []
+        return self.balance, self.ledger
+
+test = Test("Test")
+test.deposit(5)
+#test.get_ledger()
+test.clear()
+test.deposit(5, "groceries")
+test.deposit(1, "cat food")
+#test.get_ledger()
+
+'''
+pledge = {}
+print("Pledge:", pledge) #Pledge: {}
+description = ""
+amount = 1
+pledge[description] = amount
+print(pledge) #{'': 1}
+
+pledge = {}
+
+def update_dict(amount, description=""):
+    pledge[description] =  amount
+    print(pledge)
+
+update_dict(1)              #{'': 1}
+update_dict(2, "groceries") #{'': 1, 'groceries': 2
+update_dict(2)              #{'': 2, 'groceries': 2} Overwrote: ''
+'''
+
+
+'''
 balance = 10
 amount = 10
 
@@ -87,9 +141,9 @@ def check_funds(amount):
     else:
         return True
 
-print(check_funds(-amount))
+print(check_funds(amount))
 
-'''
+
 #>>>Calling the name of the Class<<<
 class fruit:
 
