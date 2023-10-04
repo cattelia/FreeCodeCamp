@@ -64,27 +64,30 @@ class Test:
             Test.update_balance(-amount)
             return True
 
-   
+'''  
 a = Test("Food")
 a.show_balance()
 a.func1(10)
 a.show_balance() 
 print(a)
-
+'''
 
 ################################################################################################################################
-global name
-name = 0
 
-def checking(amount):
-    global name
-    if name < amount:
+balance = 10
+amount = 10
+
+def check_funds(amount):
+
+    print("Balance: {}\nAmount: {}".format(balance, amount))
+
+    #False if cache < balance else True
+    if amount < balance:
         return False
     else:
-        Test.update_balance(-name)
         return True
-    
-print(checking(10))
+
+print(check_funds(-amount))
 
 '''
 #>>>Calling the name of the Class<<<

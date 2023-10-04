@@ -1,89 +1,93 @@
 class Bank:
-        # Initialize global variables
-    global balance, ledger
-    balance = 0
-    ledger = {}
 
 
-    def __init__(self, name) -> None:
-        # Collect and assign the instance name
+    def __init__(self, name, balance=0, ledger={}) -> None:
+        # Collect and assign the instance name, balance, and ledger
         self.name = name
+        self.balance = balance
+        self.ledger = ledger
+        #self.transfer = transfer(self)
 
-
+    '''
     def __str__(self):
         # str.center(#Limit, fillChar)
         #   *************Food*************
         #   *************Cat**************
-        ''' Still need the rest of the ledger (This could potentially print to a log?)'''
+        #   Still need the rest of the ledger (This could potentially print to a log?)
         header = self.name.center(30, "*")
         return header
-
+    '''
 
     def deposit(self, amount, description=""):
-        # Add the monies to the global balance counter using Bank.update_balance(). It will always be positive.
+        # Add the monies to the balance counter using Bank.update_balance(). It will always be positive.
         ''' Still need to append {description: amount} to the transaction_ledger '''
 
-        Bank.check_funds(amount)
-        print("Depositing ${}.00".format(amount))
-        Bank.update_balance(amount)
+        print("Depositing ${}.00 in {}".format(amount, self.name))
+        self.update_balance(amount)
 
 
     def withdraw(self, amount, description=""):
         # Check if there is enough in the bank versus how much we want to take out using Bank.check_funds()
         ''' Still need to include this in the ledger when we print the Class instance '''
 
-        if Bank.check_funds(-amount) == False:
-            print("Insufficient funds. Balance: ${}.00\nYou are trying to withdraw ${}.00".format(balance, amount))
+        if self.check_funds(amount) == False:
+            print("Insufficient funds")
             return False
         else:
-            print("Withdrawing ${}.00".format(amount))
+            print("Withdrawing ${}.00 from ${}.00".format(amount, self.balance))
+            self.update_balance(-amount)
             return True
 
 
 
     def get_balance(self):
-        # Return the global balance variable
+        # Return the balance variable
 
-        print("${}.00".format(balance))
-        return balance
-
-
-    def transfer(self):
-        pass
+        print("${}.00 in {}".format(self.balance, self.name))
+        return self.balance
 
 
-    @staticmethod
-    def check_funds(amount):
+
+
+    def transfer(self, amount, category):
+
+        if self.check_funds(amount) == False:
+            print("Cannot transfer to {}".format(category))
+            return False
+        else:
+            category.deposit(amount)
+            self.withdraw(amount)
+            return True
+
+
+
+
+
+    def check_funds(self, amount):
         # Define global variable within function
         # Check if there is enough in the bank versus how much we want to take out
         # If not enough in the Bank, return False if there is, return True
         # Called in Transfer() and Withdraw()
 
-        global balance
-        cache = amount + balance
+        False if self.balance < amount else True
 
-        #False if cache < balance else True
-        if cache <= balance:
+        '''
+        if balance < amount:
             return False
         else:
             return True
+        '''
 
         
 
 
-    @staticmethod
-    def update_balance(amount):
-            # If deposit(), amount
-            # If withdraw(), -amount
-        global balance
-        print("Current ${}".format(balance))
 
-        #cache = add + amount
-        #print("Cache ", cache)
-        #balance = cache
+    def update_balance(self, amount):
+            # If deposit() -> balance + amount
+            # If withdraw() -> balance + (-amount)
 
-        print("Updated ${}".format(balance))
-        return balance
+        self.balance = self.balance + amount
+        return self.balance
 
 
 def create_spend_chart(categories):
@@ -95,10 +99,40 @@ def create_spend_chart(categories):
         print("{:>3}|".format(i))
     pass
 
-food = Bank("Food")
-#food.get_balance()
-print(balance) #0
 
-food.deposit(10) #10
-#food.deposit(1) #11
-print(balance) #10
+
+dog = Bank("Dog")
+#food.get_balance()
+dog.deposit(5)
+dog.get_balance() #5
+print("")
+cat = Bank("Cat")
+cat.get_balance() #0
+print("")
+dog.transfer(1, cat)
+cat.get_balance() #1
+dog.get_balance()
+dog.transfer(5, cat)
+print("")
+cat.get_balance() #1
+dog.get_balance()
+#dog.transfer(10, cat)
+
+'''
+Current Log: NEED TO FIX WITHDRAW?/TRANSFER?/CHECK_FUNDS?
+
+Depositing $5.00 in Dog
+$5.00 in Dog
+
+$0.00 in Cat
+
+Depositing $1.00 in Cat
+Withdrawing $1.00 from $5.00
+$1.00 in Cat
+$4.00 in Dog
+Depositing $5.00 in Cat
+Withdrawing $5.00 from $4.00
+
+$6.00 in Cat
+$-1.00 in Dog
+'''
