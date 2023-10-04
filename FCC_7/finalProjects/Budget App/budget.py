@@ -8,7 +8,7 @@ class Bank:
         self.ledger = ledger
         #self.transfer = transfer(self)
 
-    '''
+
     def __str__(self):
         # str.center(#Limit, fillChar)
         #   *************Food*************
@@ -16,7 +16,7 @@ class Bank:
         #   Still need the rest of the ledger (This could potentially print to a log?)
         header = self.name.center(30, "*")
         return header
-    '''
+
 
     def deposit(self, amount, description=""):
         # Add the monies to the balance counter using Bank.update_balance(). It will always be positive.
@@ -34,7 +34,7 @@ class Bank:
             print("Insufficient funds")
             return False
         else:
-            print("Withdrawing ${}.00 from ${}.00".format(amount, self.balance))
+            print("Withdrawing ${}.00 from {}".format(amount, self.name))
             self.update_balance(-amount)
             return True
 
@@ -50,9 +50,13 @@ class Bank:
 
 
     def transfer(self, amount, category):
+        # Instance (self) to send money to another Bank instance (category) of a certain amount
+        # Check that (self) has enough, if not return False
+        # else transfer the amount to (category) and deduct the amount from balance
+        ''' Still need ot include this in the ledger for both (self) and (category) '''
 
         if self.check_funds(amount) == False:
-            print("Cannot transfer to {}".format(category))
+            print("Cannot transfer to {}".format(category.name))
             return False
         else:
             category.deposit(amount)
@@ -68,15 +72,12 @@ class Bank:
         # Check if there is enough in the bank versus how much we want to take out
         # If not enough in the Bank, return False if there is, return True
         # Called in Transfer() and Withdraw()
-
-        False if self.balance < amount else True
-
-        '''
-        if balance < amount:
+        
+        if self.balance < amount:
             return False
         else:
             return True
-        '''
+        
 
         
 
@@ -102,37 +103,21 @@ def create_spend_chart(categories):
 
 
 dog = Bank("Dog")
+cat = Bank("Cat")
 #food.get_balance()
 dog.deposit(5)
 dog.get_balance() #5
-print("")
-cat = Bank("Cat")
 cat.get_balance() #0
 print("")
+
 dog.transfer(1, cat)
-cat.get_balance() #1
 dog.get_balance()
-dog.transfer(5, cat)
+cat.get_balance() #1
 print("")
-cat.get_balance() #1
+
+dog.transfer(5, cat)
 dog.get_balance()
-#dog.transfer(10, cat)
+cat.get_balance() #1
+print("")
 
-'''
-Current Log: NEED TO FIX WITHDRAW?/TRANSFER?/CHECK_FUNDS?
-
-Depositing $5.00 in Dog
-$5.00 in Dog
-
-$0.00 in Cat
-
-Depositing $1.00 in Cat
-Withdrawing $1.00 from $5.00
-$1.00 in Cat
-$4.00 in Dog
-Depositing $5.00 in Cat
-Withdrawing $5.00 from $4.00
-
-$6.00 in Cat
-$-1.00 in Dog
-'''
+#entertainment = Bank("Entertainment")
