@@ -1,80 +1,97 @@
 class Bank:
-        # Initialize global variables
-    global balance
-    balance = 0
-
-    global transaction_ledger
-    ledger = {}
 
 
-    def __init__(self, name) -> None:
-        # Collect and assign the instance name
+    def __init__(self, name, balance=0, ledger={}):
+        # Collect and assign the instance name, balance, and ledger
+        #   self declared at initialization
+        #   balance defaults to 0/Zero
+        #   ledger defaults to dictionary object type
         self.name = name
+        self.balance = balance
+        self.ledger = ledger
 
 
     def __str__(self):
         # str.center(#Limit, fillChar)
         #   *************Food*************
         #   *************Cat**************
-        ''' Still need the rest of the ledger (This could potentially print to a log?)'''
+        ''' Still need the rest of the ledger (This could potentially print to a log?) '''
+        ''' Dont start working on until ledger is working '''
+
         header = self.name.center(30, "*")
         return header
 
 
     def deposit(self, amount, description=""):
-        # Add the monies to the global balance counter using Bank.update_balance(). It will always be positive.
-        ''' Still need to append {description: amount} to the transaction_ledger '''
-        Bank.update_balance(amount)
-        pass
+        # Add the monies to the balance counter using Bank.update_balance(). It will always be positive.
+        ''' Still need to append {description: amount} to the ledger '''
+
+        print("Depositing ${}.00 in {}".format(amount, self.name))
+        self.update_balance(amount)
 
 
     def withdraw(self, amount, description=""):
         # Check if there is enough in the bank versus how much we want to take out using Bank.check_funds()
-        ''' Still need to include this in the log when we print the Class instance '''
+        ''' Still need to include this in the ledger when we print the Class instance '''
 
-        if Bank.check_funds(amount) == False:
-            print("There is not enough to cover ${}.00".format(amount))
+        if self.check_funds(amount) == False:
+            print("Insufficient funds")
+            return False
         else:
-            print("Withdrawing -${}.00".format(amount))
+            print("Withdrawing ${}.00 from {}".format(amount, self.name))
+            self.update_balance(-amount)
+            return True
 
 
 
     def get_balance(self):
-        # Return the global balance variable
-        print("${}.00".format(balance))
-        return balance
+        # Return the balance variable
+
+        print("${}.00 in {}".format(self.balance, self.name))
+        return self.balance
 
 
-    def transfer(self):
-        pass
 
-    @staticmethod
-    def check_funds(amount):
-        # Define global variable within function
-        # Check if there is enough in the bank versus how much we want to take out
-        # If not enough in the Bank, return False if there is, return True
-        # Called in Deposit() and Withdraw()
-        ''' This is incomplete - this will work for Withdraw but not Deposit'''
+    def transfer(self, amount, category):
+        # Instance (self) to send money to another Bank instance (category) of a certain amount
+        # Check that (self) has enough, if not return False
+        # else transfer the amount to (category) and deduct the amount from balance
+        ''' Still need ot include this in the ledger for both (self) and (category) '''
 
-        global balance
-
-        if balance < amount:
+        if self.check_funds(amount) == False:
+            print("Cannot transfer to {}".format(category.name))
             return False
         else:
-            Bank.update_balance(-amount)
+            category.deposit(amount)
+            self.withdraw(amount)
             return True
 
 
-    @staticmethod
-    def update_balance(amount, add=balance):
-            # If deposit(), amount
-            # If withdraw(), -amount
-        global balance
-        balance = add + amount
-        return balance
+
+    def check_funds(self, amount):
+        # Define global variable within function
+        # Check if there is enough in the bank versus how much we want to take out
+        # If not enough in the Bank, return False if there is, return True
+        # Called in Transfer() and Withdraw()
+        
+        if self.balance < amount:
+            return False
+        else:
+            return True
+        
 
 
-def create_spend_chart(categories):
+    def update_balance(self, amount):
+            # If deposit() -> balance + amount
+            # If withdraw() -> balance + (-amount)
+
+        self.balance = self.balance + amount
+        return self.balance
+
+
+
+def create_spend_chart(categories=""):
+    # Function outside of the class Bank
     '''
     In: List of categories
     Out: ASCII Chart representing how much was spent in each category based on percentage
@@ -83,8 +100,24 @@ def create_spend_chart(categories):
         print("{:>3}|".format(i))
     pass
 
-food = Bank("Food")
-food.get_balance()
-print(food)
+
+
+dog = Bank("Dog")
 cat = Bank("Cat")
-print(cat)
+#food.get_balance()
+dog.deposit(5)
+dog.get_balance() #5
+cat.get_balance() #0
+print("")
+
+dog.transfer(1, cat)
+dog.get_balance()
+cat.get_balance() #1
+print("")
+
+dog.transfer(5, cat)
+dog.get_balance()
+cat.get_balance() #1
+print("")
+
+#entertainment = Bank("Entertainment")

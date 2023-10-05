@@ -1,5 +1,4 @@
-
-################################################################
+################################################################################################################################
 
 class Test:
     global balance
@@ -64,29 +63,110 @@ class Test:
             Test.update_balance(-amount)
             return True
 
-   
+'''  
 a = Test("Food")
 a.show_balance()
 a.func1(10)
 a.show_balance() 
 print(a)
-
+'''
 
 ################################################################################################################################
-global name
-name = 0
 
-def checking(amount):
-    global name
-    if name < amount:
-        return False
-    else:
-        Test.update_balance(-name)
-        return True
-    
-print(checking(10))
+import re
+
+class Test:
+
+    def __init__(self, name, balance=0, ledger=[]):
+        self.name = name
+        self.balance = balance
+        self.ledger = ledger
+
+    def __str__(self):
+        # ['{"amount": 2, "description": cat food}', '{"amount": 1, "description": grocery}', ...]
+        line = []
+        header = self.name.center(30, "*")
+        for item in self.ledger:
+            line.append(item)
+            # [ ' { " amount " : 2 , " description " : cat food } ' , 
+            #   ' { " amount " : 1 , " description " : grocery } ' ]
+
+        for i in line:
+            i = i.split(",")
+            # Item 1:
+            # [ ' { " amount " : 2 ' , 
+            #   ' " description " : cat food } ' ]
+            # Item 2:
+            # [ ' { " amount " : 1 ' , 
+            #   ' " description " : grocery } ' ]
+            i = i.split(":")
+            print(i)
+
+
+        return ""
+
+    def deposit(self, amount, description=""):
+        entry = '{"amount": ' + str(
+            amount) + ', "description": ' + description + '}'
+        self.balance += amount
+        self.ledger.append(entry)
+        return self.balance, self.ledger
+
+    def get_ledger(self):
+        print(self.ledger)
+
+    def get_balance(self):
+        print("Balance:", self.balance)
+
+    def clear(self):
+        self.balance = 0
+        self.ledger = []
+        return self.balance, self.ledger
+
+test = Test("Test")
+test.deposit(2, "cat food")
+test.deposit(1, "grocery")
+#test.get_ledger()
+#test.get_balance()
+print(test)
 
 '''
+pledge = {}
+print("Pledge:", pledge) #Pledge: {}
+description = ""
+amount = 1
+pledge[description] = amount
+print(pledge) #{'': 1}
+
+pledge = {}
+
+def update_dict(amount, description=""):
+    pledge[description] =  amount
+    print(pledge)
+
+update_dict(1)              #{'': 1}
+update_dict(2, "groceries") #{'': 1, 'groceries': 2
+update_dict(2)              #{'': 2, 'groceries': 2} Overwrote: ''
+'''
+
+
+'''
+balance = 10
+amount = 10
+
+def check_funds(amount):
+
+    print("Balance: {}\nAmount: {}".format(balance, amount))
+
+    #False if cache < balance else True
+    if amount < balance:
+        return False
+    else:
+        return True
+
+print(check_funds(amount))
+
+
 #>>>Calling the name of the Class<<<
 class fruit:
 
