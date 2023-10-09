@@ -72,7 +72,131 @@ print(a)
 '''
 
 ################################################################################################################################
+#REGEX: https://www.py4e.com/html3/11-regex
+#String Methods: https://docs.python.org/3/library/stdtypes.html#string-methods
+#https://regex101.com/r/gT6vU5/127
 
+import re
+
+
+class Test:
+
+    def __init__(self, name, balance=0, ledger=[]):
+        self.name = name
+        self.balance = balance
+        self.ledger = ledger
+
+    def __str__(self):
+        # ['{"amount": 2, "description": cat food}', '{"amount": 1, "description": grocery}']
+        header = self.name.center(30, "*")
+        for item in self.ledger:
+            pass
+        return ""
+
+    def deposit(self, amount, description=""):
+        entry = '{"amount": ' + str(
+            amount) + ', "description": ' + description + '}'
+        self.balance += amount
+        self.ledger.append(entry)
+        return self.balance, self.ledger
+
+    def get_ledger(self):
+        print(self.ledger)
+
+    def get_balance(self):
+        print("Balance:", self.balance)
+
+
+test = Test("Test")
+test.deposit(2, "cat food")
+test.deposit(1, "grocery")
+#test.get_ledger()
+#test.get_balance()
+#print(test)
+
+line = 'X-Sieve: CMU Sieve 2.3'
+
+#re.find('^X.*:')
+'''
+line = 'X-Sieve: CMU Sieve 2.3'
+
+Methods:
+re.search()
+re.findall()
+re.find()
+re.startswith()
+
+Expressions:
+^ - Match the start of a line, '^X'
+. - Match any character (Singular match case) '^X.'
+* - Many times (Many times)
+\S - Match any non-whitespace cahracter
+\s - Match only whitespace characters
++ - One or more times
+'''
+'''
+pattern = re.compile("^Cat")
+pattern.search(str)
+'''
+'''
+*************Food*************
+initial deposit        1000.00
+groceries               -10.15
+restaurant and more foo -15.89
+Transfer to Clothing    -50.00
+Total: 923.96
+'''
+
+ledger = [
+    '{"amount": 20, "description": this is more than characters}',
+    #012345678901234567890123456789012345678
+    '{"amount": 1, "description": grocery}',
+    '{"amount": 1, "description": ""}'
+]
+
+
+def search(ledger):
+    header = "Cat".center(30, "*")
+    print(header)
+
+    for entry in ledger:
+
+        #line = entry.split(",")
+        #amount = entry[1:entry.find(",")]
+        amount_item = entry[entry.find('t": ')+4:entry.find(",")]
+        description_item = entry[entry.find('n": ')+4:entry.find("}")]
+        amount_item = "{}.00".format(amount_item)
+        print("{:<20}{:>10}".format(description_item[0:20], amount_item))
+        
+
+        
+        for item in line:
+            item = item.replace("{", "").strip()
+            item = item.replace("}", "")
+            prefix = "amount:" if item.startswith(
+                '{"amo') == True else "description:"
+
+
+'''
+['{"amount": 2', ' "description": cat food}']      #list
+Item: {"amount": 2                                 #str
+Item:  "description": cat food}                    #str
+
+['{"amount": 1', ' "description": grocery}']       #list
+Item: {"amount": 1                                 #str
+Item:  "description": grocery}                     #str
+'''
+
+
+
+
+'''
+search(ledger)
+
+if line.startswith('test:'):
+    print(line[5:line.find('.')])
+
+    
 import re
 
 class Test:
@@ -130,7 +254,7 @@ test.deposit(1, "grocery")
 #test.get_balance()
 print(test)
 
-'''
+
 pledge = {}
 print("Pledge:", pledge) #Pledge: {}
 description = ""
