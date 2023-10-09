@@ -72,6 +72,7 @@ print(a)
 '''
 
 ################################################################################################################################
+
 #REGEX: https://www.py4e.com/html3/11-regex
 #String Methods: https://docs.python.org/3/library/stdtypes.html#string-methods
 #https://regex101.com/r/gT6vU5/127
@@ -242,12 +243,14 @@ class Test:
     def get_balance(self):
         print("Balance:", self.balance)
 
+
     def clear(self):
         self.balance = 0
         self.ledger = []
         return self.balance, self.ledger
 
 test = Test("Test")
+
 test.deposit(2, "cat food")
 test.deposit(1, "grocery")
 #test.get_ledger()

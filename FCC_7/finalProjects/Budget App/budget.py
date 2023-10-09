@@ -1,7 +1,9 @@
 class Bank:
 
 
+
     def __init__(self, name, balance = 0, ledger = []):
+
         # Collect and assign the instance name, balance, and ledger
         #   self declared at initialization
         #   balance defaults to 0/Zero
@@ -16,6 +18,7 @@ class Bank:
         #   *************Food*************
         #   *************Cat**************
         ''' Still need the rest of the ledger (This could potentially print to a log?) '''
+
         ''' Fake self.ledger to reference 
         ledger = [
             '{"amount": 20, "description": this is more than characters}',
@@ -24,6 +27,7 @@ class Bank:
             '{"amount": 1, "description": ""}'
         ]
         '''
+
 
         header = self.name.center(30, "*")
         print(header)
@@ -55,11 +59,21 @@ class Bank:
         self.update_balance(amount)
         return self.balance
 
+      
+      
+    def deposit(self, amount, description=""):
+        # Add the monies to the balance counter using Bank.update_balance(). It will always be positive.
+        ''' Still need to append {description: amount} to the ledger '''
+
+        print("Depositing ${}.00 in {}".format(amount, self.name))
+        self.update_balance(amount)
+
 
 
     def withdraw(self, amount, description=""):
         # Check if there is enough in the bank versus how much we want to take out using Bank.check_funds()
         ''' Still need to include this in the ledger when we print the Class instance '''
+
 
         if self.check_funds(amount) == False:
             print("Insufficient funds")
@@ -68,6 +82,7 @@ class Bank:
             print("Withdrawing ${}.00 from {}".format(amount, self.name))
             self.update_balance(-amount)
             return True
+
 
 
 
@@ -84,7 +99,6 @@ class Bank:
             category.deposit(amount)
             self.withdraw(amount)
             return True
-        
 
 
     def check_funds(self, amount):
@@ -97,6 +111,8 @@ class Bank:
             return False
         else:
             return True
+        
+
 
 
 
@@ -121,7 +137,8 @@ class Bank:
         self.balance = self.balance + amount
         return self.balance
     
-
+    
+    
 def create_spend_chart(categories=""):
     # Function outside of the class Bank
     '''
@@ -142,7 +159,6 @@ dog.get_balance() #5
 cat.get_balance() #0
 print("")
 
-
 dog.transfer(1, cat)
 dog.get_balance()
 cat.get_balance() #1
@@ -152,6 +168,3 @@ dog.transfer(5, cat)
 dog.get_balance()
 cat.get_balance() #1
 print("")
-
-#entertainment = Bank("Entertainment")
-
