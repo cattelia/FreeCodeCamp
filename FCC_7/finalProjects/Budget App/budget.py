@@ -1,6 +1,7 @@
 class Bank:
 
 
+
     def __init__(self, name, balance = 0, ledger=None):
         # Collect and assign the instance name, balance, and ledger
         #   self declared at initialization
@@ -29,6 +30,7 @@ class Bank:
         ]
 
         '''
+
 
         header = self.name.center(30, "*")
         print(header)
@@ -62,8 +64,8 @@ class Bank:
         return self.balance
     
 
-    
-  
+
+
     def withdraw(self, amount, description=""):
         # Check if there is enough in the bank versus how much we want to take out using Bank.check_funds()
 
@@ -78,9 +80,7 @@ class Bank:
             print("Withdrawing ${:.2f} from {}".format(amount, self.name))
             self.update_balance(-amount)
             return True
-    
 
-    
   
     def transfer(self, amount, category):
         # Instance (self) to send money to another Bank instance (category) of a certain amount
@@ -94,10 +94,9 @@ class Bank:
             category.deposit(amount)
             self.withdraw(amount, "Transfer to {}".format(category.name))
             return True
-    
+        
 
-    
-  
+
     def check_funds(self, amount):
         # Define global variable within function
         # Check if there is enough in the bank versus how much we want to take out
@@ -108,7 +107,6 @@ class Bank:
             return False
         else:
             return True
-    
 
     
   
@@ -137,8 +135,6 @@ class Bank:
         return self.balance
     
 
-    
-  
 def create_spend_chart(categories=""):
     # Function outside of the class Bank
     '''
