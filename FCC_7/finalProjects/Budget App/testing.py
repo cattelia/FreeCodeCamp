@@ -1,5 +1,242 @@
+#REGEX: https://www.py4e.com/html3/11-regex
+#String Methods: https://docs.python.org/3/library/stdtypes.html#string-methods
+#https://regex101.com/
+
+class Bank:
+
+    def __init__(self, name, balance=None):
+        self.name = name
+        if balance is None:
+            balance = []
+            self.balance = balance
+
+    def deposit(self, amount):
+        #Simulate withdraws
+        self.balance.append(-amount)
+
+    def get_balance(self):
+        return self.balance
+
+
+def create_spend_chart(categories):
+    # Function outside of Bank()
+
+    '''
+    In: List of class instances --> [cat, dog, auto]
+    Out: ASCII Chart representing % distribution each category
+    '''
+
+    withdrawBalances = []
+
+    # Used later to compute percentage usage
+    total = 0
+
+    # Get and count withdrawals for each category: self.ledger
+    for category in categories:
+        #[cat, dog, auto] --> "cat"
+
+        # Clear cache or next category
+        cache = 0
+
+        for entry in category.get_balance():
+            if str(entry).startswith("-"):
+                #Make it a positive number
+                cache -= entry
+                total -= entry
+
+        # Round down to the nearest 10th and write to list.
+        cache = round(cache, -1)
+        withdrawBalances.append(cache)
+
+    #Visual output
+    print("Percentage spent by category")
+    for i in range(100, -10, -10):
+        line = "{:>3}|".format(i)
+        if str(i).startswith("0"):
+            line = line + (" o" * len(categories))
+        print(line)
+
+    #Dashed line
+    print("    " + ("--" * len(categories)) + "--")
+
+    n = 0
+
+    for category in categories:
+        base = "    "
+        while n < len(category.name):
+            print(base + " {}".format(category.name[n]))
+            n += 1
+        
+        
+
+
+cat = Bank("Cat")
+dog = Bank("Dog")
+
+create_spend_chart([cat, dog])
+
+cat.deposit(10)
+cat.deposit(15)
+dog.deposit(120)
+
+'''
+
+#num = 14.99
+#print(round(num, - 1))
+
+
+Percentage spent by category
+100|          
+ 90|          
+ 80|          
+ 70|          
+ 60| o        
+ 50| o        
+ 40| o        
+ 30| o        
+ 20| o  o     
+ 10| o  o  o  
+  0| o  o  o  
+    ----------
+     F  C  A  
+     o  l  u  
+     o  o  t  
+     d  t  o  
+        h     
+        i     
+        n     
+        g     
+'''
+
 ################################################################################################################################
 
+'''
+import re
+
+class Test:
+
+    def __init__(self, name, balance=0, ledger=[]):
+        self.name = name
+        self.balance = balance
+        self.ledger = ledger
+
+    def __str__(self):
+        # ['{"amount": 2, "description": cat food}', '{"amount": 1, "description": grocery}']
+        header = self.name.center(30, "*")
+        for item in self.ledger:
+            pass
+        return ""
+
+    def deposit(self, amount, description=""):
+        entry = '{"amount": ' + str(
+            amount) + ', "description": ' + description + '}'
+        self.balance += amount
+        self.ledger.append(entry)
+        return self.balance, self.ledger
+
+    def get_ledger(self):
+        print(self.ledger)
+
+    def get_balance(self):
+        print("Balance:", self.balance)
+
+
+test = Test("Test")
+test.deposit(2, "cat food")
+test.deposit(1, "grocery")
+#test.get_ledger()
+#test.get_balance()
+#print(test)
+
+line = 'X-Sieve: CMU Sieve 2.3'
+
+#re.find('^X.*:')
+
+line = 'X-Sieve: CMU Sieve 2.3'
+
+Methods:
+re.search()
+re.findall()
+re.find()
+re.startswith()
+
+Expressions:
+^ - Match the start of a line, '^X'
+. - Match any character (Singular match case) '^X.'
+* - Many times (Many times)
+\S - Match any non-whitespace cahracter
+\s - Match only whitespace characters
++ - One or more times
+
+
+pattern = re.compile("^Cat")
+pattern.search(str)
+
+
+*************Food*************
+initial deposit        1000.00
+groceries               -10.15
+restaurant and more foo -15.89
+Transfer to Clothing    -50.00
+Total: 923.96
+
+
+ledger = [
+    '{"amount": 20, "description": this is more than characters}',
+    #012345678901234567890123456789012345678
+    '{"amount": 1, "description": grocery}',
+    '{"amount": 1, "description": ""}'
+]
+
+
+def search(ledger):
+    header = "Cat".center(30, "*")
+    print(header)
+
+    for entry in ledger:
+
+        #line = entry.split(",")
+        #amount = entry[1:entry.find(",")]
+        amount_item = entry[entry.find('t": ') + 4:entry.find(",")]
+        description_item = entry[entry.find('n": ') + 4:entry.find("}")]
+        amount_item = "{}.00".format(amount_item)
+        print("{:<20}{:>10}".format(description_item[0:20], amount_item))
+
+        
+        for item in line:
+            item = item.replace("{", "").strip()
+            item = item.replace("}", "")
+            prefix = "amount:" if item.startswith(
+                '{"amo') == True else "description:"
+
+
+
+['{"amount": 2', ' "description": cat food}']      #list
+Item: {"amount": 2                                 #str
+Item:  "description": cat food}                    #str
+
+['{"amount": 1', ' "description": grocery}']       #list
+Item: {"amount": 1                                 #str
+Item:  "description": grocery}                     #str
+
+
+search(ledger)
+
+if line.startswith('test:'):
+    print(line[5:line.find('.')])
+'''
+'''
+Common Error:
+"List object is not callable" is one of the most common errors in python. It means that you are attempting to call a list ( a non callable object ) like a function. In simple words, it basically means that you are trying to call a function which has a name of a list, in your code.
+
+Do not name functions after variables.
+'''
+
+
+
+################################################################################################################################
+
+'''
 class Test:
     global balance
     balance = 0
@@ -63,7 +300,7 @@ class Test:
             Test.update_balance(-amount)
             return True
 
-'''  
+
 a = Test("Food")
 a.show_balance()
 a.func1(10)
@@ -77,6 +314,8 @@ print(a)
 #String Methods: https://docs.python.org/3/library/stdtypes.html#string-methods
 #https://regex101.com/r/gT6vU5/127
 
+
+'''
 import re
 
 
@@ -118,7 +357,7 @@ test.deposit(1, "grocery")
 line = 'X-Sieve: CMU Sieve 2.3'
 
 #re.find('^X.*:')
-'''
+
 line = 'X-Sieve: CMU Sieve 2.3'
 
 Methods:
@@ -146,7 +385,7 @@ groceries               -10.15
 restaurant and more foo -15.89
 Transfer to Clothing    -50.00
 Total: 923.96
-'''
+
 
 ledger = [
     '{"amount": 20, "description": this is more than characters}',
@@ -178,7 +417,7 @@ def search(ledger):
                 '{"amo') == True else "description:"
 
 
-'''
+
 ['{"amount": 2', ' "description": cat food}']      #list
 Item: {"amount": 2                                 #str
 Item:  "description": cat food}                    #str
@@ -354,11 +593,11 @@ class Test:
 var = {"desc":10}
 food = Test()
 food.setVar(var)
-'''
+
 
 ################################################################################################################################
 
-'''
+
     def __init__(self):
         print("Starting the test")
         #self.A = 1
