@@ -2,6 +2,8 @@
 #String Methods: https://docs.python.org/3/library/stdtypes.html#string-methods
 #https://regex101.com/
 
+
+
 class Bank:
 
     def __init__(self, name, balance=None):
@@ -66,18 +68,76 @@ def create_spend_chart(categories):
         while n < len(category.name):
             print(base + " {}".format(category.name[n]))
             n += 1
-        
-        
 
 
 cat = Bank("Cat")
 dog = Bank("Dog")
-
-create_spend_chart([cat, dog])
-
+vehicle = Bank("Vehicle")
 cat.deposit(10)
 cat.deposit(15)
 dog.deposit(120)
+categories = [cat, dog, vehicle]
+#create_spend_chart(categories)
+
+################################################################################################################################
+#https://stackoverflow.com/questions/19622169/vertical-print-string-python3-2
+
+def printVert0(categories):
+    for i in range(len(categories)):
+        for x in categories:
+            print(x.name[i], end=" ")
+        print()
+# Only prints 2 items because there are only 2 things in the list, only allowing this method to print to the 1-index.        
+#C D 
+#a o 
+
+def printVert1(categories):
+    cache = []
+    for category in categories:
+        cache.append(category.name)
+
+    for x, y, z in zip(*cache):
+        print(x, y, z)
+
+# Works great for the smallest items in list. Vehicle does not completely print out. 
+# If I change "Cat" to "Ca" then only: "Do" and "Ve" will print
+#C D V
+#a o e
+#t g h
+from itertools import zip_longest
+
+def printVert(categories):
+    base = "     "
+    cache = []
+    for category in categories:
+        cache.append(category.name)
+    
+    for x in zip_longest(*cache, fillvalue=" "):
+        print(base + "  ".join(x))
+
+# Seems to be working as intended.
+# Fill value is indicated by x and .join() value is indicated by .
+'''
+C D V
+a o e
+t g h
+    i
+    c
+    l
+    e
+
+C.D.V
+a.o.e
+t.g.h
+x.x.i
+x.x.c
+x.x.l
+x.x.e
+'''
+
+#printVert(categories)
+
+################################################################################################################################
 
 '''
 
