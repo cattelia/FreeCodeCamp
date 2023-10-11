@@ -2,7 +2,8 @@
 #String Methods: https://docs.python.org/3/library/stdtypes.html#string-methods
 #https://regex101.com/
 
-
+#Utilized in def create_spend_chart()
+from itertools import zip_longest
 
 class Bank:
 
@@ -28,29 +29,31 @@ def create_spend_chart(categories):
     Out: ASCII Chart representing % distribution each category
     '''
 
-    withdrawBalances = []
+    ### The Maths ###
 
-    # Used later to compute percentage usage
+    # Used to compute percentage usage
     total = 0
-
+    withdrawBalances = []
     # Get and count withdrawals for each category: self.ledger
     for category in categories:
-        #[cat, dog, auto] --> "cat"
+        ''' In: [cat, dog, auto] --> Out: cat '''
 
-        # Clear cache or next category
-        cache = 0
-
+        # Clear cache for next category
+        numCache = 0
         for entry in category.get_balance():
             if str(entry).startswith("-"):
                 #Make it a positive number
-                cache -= entry
+                numCache -= entry
                 total -= entry
 
         # Round down to the nearest 10th and write to list.
-        cache = round(cache, -1)
-        withdrawBalances.append(cache)
+        numCache = round(numCache, -1)
+        withdrawBalances.append(numCache)
 
-    #Visual output
+
+    ### Visual output ###
+
+    #Percentage table
     print("Percentage spent by category")
     for i in range(100, -10, -10):
         line = "{:>3}|".format(i)
@@ -61,13 +64,18 @@ def create_spend_chart(categories):
     #Dashed line
     print("    " + ("--" * len(categories)) + "--")
 
-    n = 0
+    #Vertical Names
 
+    #Pull just the str:name of each instance
+    base = "     "
+    alphaCache = []
     for category in categories:
-        base = "    "
-        while n < len(category.name):
-            print(base + " {}".format(category.name[n]))
-            n += 1
+        alphaCache.append(category.name)
+
+    for x in zip_longest(*alphaCache, fillvalue=" "):
+        print(base + " ".join(x))
+
+
 
 
 cat = Bank("Cat")
@@ -77,7 +85,7 @@ cat.deposit(10)
 cat.deposit(15)
 dog.deposit(120)
 categories = [cat, dog, vehicle]
-#create_spend_chart(categories)
+create_spend_chart(categories)
 
 ################################################################################################################################
 #https://stackoverflow.com/questions/19622169/vertical-print-string-python3-2
@@ -104,6 +112,8 @@ def printVert1(categories):
 #C D V
 #a o e
 #t g h
+
+
 from itertools import zip_longest
 
 def printVert(categories):
