@@ -34,6 +34,7 @@ def create_spend_chart(categories):
     # Used to compute percentage usage
     total = 0
     withdrawBalances = []
+
     # Get and count withdrawals for each category: self.ledger
     for category in categories:
         ''' In: [cat, dog, auto] --> Out: cat '''
@@ -43,12 +44,31 @@ def create_spend_chart(categories):
         for entry in category.get_balance():
             if str(entry).startswith("-"):
                 #Make it a positive number
-                numCache -= entry
-                total -= entry
+                numCache += (-1)*entry
+                total += (-1)*entry
 
-        # Round down to the nearest 10th and write to list.
-        numCache = round(numCache, -1)
+            #numCache = round(numCache, -1) # Round to the 10th USE THIS LATER
         withdrawBalances.append(numCache)
+
+    ''' Output from above:
+    Total 67 Cache 67 Balances [67]
+    Total 187 Cache 120 Balances [67, 120]
+    Total 221 Cache 34 Balances [67, 120, 34]
+
+    ### Raw Percent ###
+    67 | 30.316742081447963 | 30.0
+    120 | 54.29864253393665 | 50.0
+    34 | 15.384615384615385 | 20.0
+    '''
+
+    # Get the percentage spent on each category
+    for item in withdrawBalances:
+
+        percentage = (item / total) * 100
+        # Round to the 10th 
+        percentage = round(percentage, -1)
+
+
 
 
     ### Visual output ###
@@ -57,6 +77,8 @@ def create_spend_chart(categories):
     print("Percentage spent by category")
     for i in range(100, -10, -10):
         line = "{:>3}|".format(i)
+
+        # Line-0
         if str(i).startswith("0"):
             line = line + (" o" * len(categories))
         print(line)
@@ -65,8 +87,6 @@ def create_spend_chart(categories):
     print("    " + ("--" * len(categories)) + "--")
 
     #Vertical Names
-
-    #Pull just the str:name of each instance
     base = "     "
     alphaCache = []
     for category in categories:
@@ -85,6 +105,8 @@ cat.deposit(10)
 cat.deposit(15)
 dog.deposit(120)
 categories = [cat, dog, vehicle]
+vehicle.deposit(34)
+cat.deposit(42)
 create_spend_chart(categories)
 
 ################################################################################################################################
