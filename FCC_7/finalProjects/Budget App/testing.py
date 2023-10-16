@@ -2,6 +2,63 @@
 #String Methods: https://docs.python.org/3/library/stdtypes.html#string-methods
 #https://regex101.com/
 
+
+### THIS MADE A LIST OF %'s to print out. ###
+
+
+numbers = [10, 20, 45]
+total = 75
+
+def test(numbers):
+    #Testing how to get percentages for ASCII UI
+    
+    formatLine = []
+    for n in numbers:
+        roundNum = round((n / total) * 100, -1) #10.0, 30.0, 60.0
+        formatLine.append(int(roundNum)) #[ 10, 30, 60 ]
+
+    #formatLine.append( "o" * int(str(roundNum)[0]) )
+        
+    for i in range(100, -10, -10):
+        line = "{:>3}|".format(i)
+        for n in formatLine:
+            if i == n:
+                line = line + " o" #This needs same treatment as the category moving
+        
+        print(line)
+
+test(numbers)
+
+################################################################################################################################
+
+### THIS MADE A LIST OF "o"'s to print out. ###
+
+numbers = [10, 20, 45]
+total = 75
+
+def test(numbers):
+    #Testing how to get percentages for ASCII UI
+    
+    formatLine = []
+    for n in numbers:
+        roundNum = round((n / total) * 100, -1) #10.0, 30.0, 60.0
+        # str(roundNum[0]) as to be able to index into it. int(...) to be able to multiply by that number.
+        formatLine.append( "o" * int(str(roundNum)[0]) )
+        print(formatLine) #[o, ooo, oooooo]
+    
+    for n in formatLine:
+        print(n)
+        print( formatLine.count("o") )
+        #print(type(n))
+        
+        
+    for i in range(100, -10, -10):
+        line = "{:>3}|".format(i)
+
+#test(numbers)
+
+################################################################################################################################
+
 #Utilized in def create_spend_chart()
 from itertools import zip_longest
 
@@ -65,7 +122,7 @@ def create_spend_chart(categories):
     for item in withdrawBalances:
 
         percentage = (item / total) * 100
-        # Round to the 10th 
+        # Round to the 10th : float xx.0
         percentage = round(percentage, -1)
 
 
@@ -107,7 +164,8 @@ dog.deposit(120)
 categories = [cat, dog, vehicle]
 vehicle.deposit(34)
 cat.deposit(42)
-create_spend_chart(categories)
+#create_spend_chart(categories)
+
 
 ################################################################################################################################
 #https://stackoverflow.com/questions/19622169/vertical-print-string-python3-2
@@ -462,7 +520,7 @@ Expressions:
 ^ - Match the start of a line, '^X'
 . - Match any character (Singular match case) '^X.'
 * - Many times (Many times)
-\S - Match any non-whitespace cahracter
+\S - Match any non-whitespace character
 \s - Match only whitespace characters
 + - One or more times
 '''
