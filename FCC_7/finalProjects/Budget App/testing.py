@@ -2,35 +2,57 @@
 #String Methods: https://docs.python.org/3/library/stdtypes.html#string-methods
 #https://regex101.com/
 
+from itertools import zip_longest
+
+################################################################################################################################
+
+
 
 ### THIS MADE A LIST OF %'s to print out. ###
-
-
-numbers = [10, 20, 45]
+withdrawBalances = [10, 20, 45]
 total = 75
 
 def test(numbers):
     #Testing how to get percentages for ASCII UI
-    
-    formatLine = []
-    for n in numbers:
-        roundNum = round((n / total) * 100, -1) #10.0, 30.0, 60.0
-        formatLine.append(int(roundNum)) #[ 10, 30, 60 ]
 
-    #formatLine.append( "o" * int(str(roundNum)[0]) )
+    roundedPercents = []
+    formatLine = []
+    for item in withdrawBalances:
+        percentage = round((item / total) * 100, -1) #30.0, 50.0, 20.0
+        roundedPercents.append(int(percentage)) #30, 50, 20 #???
+        formatLine.append("o" * int(str(percentage)[0]))
+
+    print(roundedPercents)                                                      ##### PRINT #####
+    print(formatLine)                                                           ##### PRINT #####
+
         
     for i in range(100, -10, -10):
         line = "{:>3}|".format(i)
-        for n in formatLine:
-            if i == n:
-                line = line + " o" #This needs same treatment as the category moving
+        for num in formatLine:
+            for x in zip_longest(*formatLine, fillvalue = " "):
+                if len(num) * 10 == i:
+                    pass
+                
         
         print(line)
+    
 
-test(numbers)
+
+
+    ''' IGNORE 
+    if str(i).startswith("0"):
+        line = line + (" o" * len(withdrawBalances))
+    print(line)
+
+    #Dashed line
+    print("    " + ("--" * len(withdrawBalances)) + "--")
+    '''
+
+
+test(withdrawBalances)
 
 ################################################################################################################################
-
+'''
 ### THIS MADE A LIST OF "o"'s to print out. ###
 
 numbers = [10, 20, 45]
@@ -56,7 +78,7 @@ def test(numbers):
         line = "{:>3}|".format(i)
 
 #test(numbers)
-
+'''
 ################################################################################################################################
 
 #Utilized in def create_spend_chart()
@@ -104,9 +126,9 @@ def create_spend_chart(categories):
                 numCache += (-1)*entry
                 total += (-1)*entry
 
-            #numCache = round(numCache, -1) # Round to the 10th USE THIS LATER
         withdrawBalances.append(numCache)
 
+    print(withdrawBalances)                                                         ##### PRINT #####
     ''' Output from above:
     Total 67 Cache 67 Balances [67]
     Total 187 Cache 120 Balances [67, 120]
@@ -117,15 +139,7 @@ def create_spend_chart(categories):
     120 | 54.29864253393665 | 50.0
     34 | 15.384615384615385 | 20.0
     '''
-
-    # Get the percentage spent on each category
-    for item in withdrawBalances:
-
-        percentage = (item / total) * 100
-        # Round to the 10th : float xx.0
-        percentage = round(percentage, -1)
-
-
+                    
 
 
     ### Visual output ###
@@ -135,7 +149,10 @@ def create_spend_chart(categories):
     for i in range(100, -10, -10):
         line = "{:>3}|".format(i)
 
-        # Line-0
+        # Line 100 - 10
+
+
+        # Line - 0
         if str(i).startswith("0"):
             line = line + (" o" * len(categories))
         print(line)
@@ -165,6 +182,7 @@ categories = [cat, dog, vehicle]
 vehicle.deposit(34)
 cat.deposit(42)
 #create_spend_chart(categories)
+
 
 
 ################################################################################################################################
