@@ -34,7 +34,7 @@ def test(numbers):
                     pass
                 
         
-        print(line)
+        #print(line)
     
 
 
@@ -139,8 +139,6 @@ def create_spend_chart(categories):
     120 | 54.29864253393665 | 50.0
     34 | 15.384615384615385 | 20.0
     '''
-                    
-
 
     ### Visual output ###
 
@@ -162,12 +160,24 @@ def create_spend_chart(categories):
 
     #Vertical Names
     base = "     "
-    alphaCache = []
-    for category in categories:
-        alphaCache.append(category.name)
+    
+    #alphaCache = []
+    #for category in categories:
+        #alphaCache.append(category.name)
+    #for x in zip_longest(*alphaCache, fillvalue=" "):
+        #print(base + " ".join(x))
 
-    for x in zip_longest(*alphaCache, fillvalue=" "):
-        print(base + " ".join(x))
+    high = max([ len(i.name) for i in categories ])
+    bars = [ (i.name).ljust(high) for i in categories ]
+    rows = [ ' '.join(i) for i in zip_longest(*bars) ]
+    for i in rows:
+        print(base + i)
+
+    #rows = [ rows[i].insert(0, base) for i in rows ]
+    #print(*rows, sep="\n")
+    
+
+
 
 
 
@@ -181,13 +191,14 @@ dog.deposit(120)
 categories = [cat, dog, vehicle]
 vehicle.deposit(34)
 cat.deposit(42)
-#create_spend_chart(categories)
+create_spend_chart(categories)
 
 
 
 ################################################################################################################################
 #https://stackoverflow.com/questions/19622169/vertical-print-string-python3-2
 
+'''
 def printVert0(categories):
     for i in range(len(categories)):
         for x in categories:
@@ -222,6 +233,7 @@ def printVert(categories):
     
     for x in zip_longest(*cache, fillvalue=" "):
         print(base + "  ".join(x))
+'''
 
 # Seems to be working as intended.
 # Fill value is indicated by x and .join() value is indicated by .
@@ -332,7 +344,7 @@ Expressions:
 ^ - Match the start of a line, '^X'
 . - Match any character (Singular match case) '^X.'
 * - Many times (Many times)
-\S - Match any non-whitespace cahracter
+\S - Match any non-whitespace character
 \s - Match only whitespace characters
 + - One or more times
 
