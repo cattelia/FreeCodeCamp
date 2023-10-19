@@ -6,81 +6,6 @@ from itertools import zip_longest
 
 ################################################################################################################################
 
-
-
-### THIS MADE A LIST OF %'s to print out. ###
-withdrawBalances = [10, 20, 45]
-total = 75
-
-def test(numbers):
-    #Testing how to get percentages for ASCII UI
-
-    roundedPercents = []
-    formatLine = []
-    for item in withdrawBalances:
-        percentage = round((item / total) * 100, -1) #30.0, 50.0, 20.0
-        roundedPercents.append(int(percentage)) #30, 50, 20 #???
-        formatLine.append("o" * int(str(percentage)[0]))
-
-    print(roundedPercents)                                                      ##### PRINT #####
-    print(formatLine)                                                           ##### PRINT #####
-
-        
-    for i in range(100, -10, -10):
-        line = "{:>3}|".format(i)
-        for num in formatLine:
-            for x in zip_longest(*formatLine, fillvalue = " "):
-                if len(num) * 10 == i:
-                    pass
-                
-        
-        #print(line)
-    
-
-
-
-    ''' IGNORE 
-    if str(i).startswith("0"):
-        line = line + (" o" * len(withdrawBalances))
-    print(line)
-
-    #Dashed line
-    print("    " + ("--" * len(withdrawBalances)) + "--")
-    '''
-
-
-test(withdrawBalances)
-
-################################################################################################################################
-'''
-### THIS MADE A LIST OF "o"'s to print out. ###
-
-numbers = [10, 20, 45]
-total = 75
-
-def test(numbers):
-    #Testing how to get percentages for ASCII UI
-    
-    formatLine = []
-    for n in numbers:
-        roundNum = round((n / total) * 100, -1) #10.0, 30.0, 60.0
-        # str(roundNum[0]) as to be able to index into it. int(...) to be able to multiply by that number.
-        formatLine.append( "o" * int(str(roundNum)[0]) )
-        print(formatLine) #[o, ooo, oooooo]
-    
-    for n in formatLine:
-        print(n)
-        print( formatLine.count("o") )
-        #print(type(n))
-        
-        
-    for i in range(100, -10, -10):
-        line = "{:>3}|".format(i)
-
-#test(numbers)
-'''
-################################################################################################################################
-
 #Utilized in def create_spend_chart()
 from itertools import zip_longest
 
@@ -110,9 +35,10 @@ def create_spend_chart(categories):
 
     ### The Maths ###
 
-    # Used to compute percentage usage
+    # Used to compute percentages
     total = 0
-    withdrawBalances = []
+    withdrawBalances = [] # Collect all negative withdraws from instance
+    withdrawPercents = [] # Hold percentage in ascii-"o" format for visual output
 
     # Get and count withdrawals for each category: self.ledger
     for category in categories:
@@ -129,16 +55,13 @@ def create_spend_chart(categories):
         withdrawBalances.append(numCache)
 
     print(withdrawBalances)                                                         ##### PRINT #####
-    ''' Output from above:
-    Total 67 Cache 67 Balances [67]
-    Total 187 Cache 120 Balances [67, 120]
-    Total 221 Cache 34 Balances [67, 120, 34]
 
-    ### Raw Percent ###
-    67 | 30.316742081447963 | 30.0
-    120 | 54.29864253393665 | 50.0
-    34 | 15.384615384615385 | 20.0
-    '''
+    for i in withdrawBalances:
+        roundNum = round((i / total) * 100, -1) #Round to the 10th
+        # Get "o" percent representation. Checking for 100 before moving to 90 - 10
+        asciiRep = "oooooooooo" if roundNum == 100 else "o" * int(str(roundNum)[0])
+        withdrawPercents.append(asciiRep) #["ooo", "ooooo", "oo"]
+
 
     ### Visual output ###
 
@@ -148,6 +71,7 @@ def create_spend_chart(categories):
         line = "{:>3}|".format(i)
 
         # Line 100 - 10
+        
 
 
         # Line - 0
@@ -160,21 +84,35 @@ def create_spend_chart(categories):
 
     #Vertical Names
     base = "     "
-    
-    #alphaCache = []
-    #for category in categories:
-        #alphaCache.append(category.name)
-    #for x in zip_longest(*alphaCache, fillvalue=" "):
-        #print(base + " ".join(x))
-
-    high = max([ len(i.name) for i in categories ])
-    bars = [ (i.name).ljust(high) for i in categories ]
-    rows = [ ' '.join(i) for i in zip_longest(*bars) ]
+    high = max([ len(i.name) for i in categories ])     #max([3, 3, 7]) -> 7 -> high = 7
+    bars = [ (i.name).ljust(high) for i in categories ] #['Cat    ', 'Dog    ', 'Vehicle']
+    rows = [ ' '.join(i) for i in zip_longest(*bars) ]  #['C D V', 'a o e', 't g h', '    i', '    c', '    l', '    e']
     for i in rows:
         print(base + i)
 
-    #rows = [ rows[i].insert(0, base) for i in rows ]
-    #print(*rows, sep="\n")
+##########
+ 
+    numbers = [ "{:>3}|".format(i) for i in range(100, -10, -10)] #['100|', ' 90|', ' 80|', ' 70|', ' 60|', ' 50|', ' 40|', ' 30|', ' 20|', ' 10|', '  0|']
+    highNum = max([ len(i) for i in withdrawPercents ]) #5
+
+    
+    for i in numbers: # 100, 90, 80, 70, 60, 50, 40, 30, 20, 10, 0
+        
+        for x in withdrawPercents: # ooooo, ooo, oo
+            alpha = list(x) #['o', 'o', 'o', 'o', 'o'] || ['o', 'o', 'o'] || ['o', 'o']
+
+            if len(x)*10 == int(i[0:3]):
+                counter = len(x) - 1
+                while counter > 0:
+                    i = i + " " + x[counter]
+                    counter -= 1
+        print(i)
+                
+                
+
+                
+
+
     
 
 
@@ -185,15 +123,85 @@ def create_spend_chart(categories):
 cat = Bank("Cat")
 dog = Bank("Dog")
 vehicle = Bank("Vehicle")
+categories = [cat, dog, vehicle]
 cat.deposit(10)
 cat.deposit(15)
 dog.deposit(120)
-categories = [cat, dog, vehicle]
 vehicle.deposit(34)
 cat.deposit(42)
 create_spend_chart(categories)
 
+################################################################################################################################
 
+    #alphaCache = []
+    #for category in categories:
+        #alphaCache.append(category.name)
+    #for x in zip_longest(*alphaCache, fillvalue=" "):
+        #print(base + " ".join(x))
+
+'''
+
+
+### THIS MADE A LIST OF %'s to print out. ###
+withdrawBalances = [10, 20, 45]
+total = 75
+
+def test(numbers):
+    #Testing how to get percentages for ASCII UI
+
+    roundedPercents = []
+    formatLine = []
+    for item in withdrawBalances:
+        percentage = round((item / total) * 100, -1) #30.0, 50.0, 20.0
+        roundedPercents.append(int(percentage)) #30, 50, 20 #???
+        formatLine.append("o" * int(str(percentage)[0]))
+
+    print(roundedPercents)                                                      ##### PRINT #####
+    print(formatLine)                                                           ##### PRINT #####
+
+        
+    for i in range(100, -10, -10):
+        line = "{:>3}|".format(i)
+        for num in formatLine:
+            for x in zip_longest(*formatLine, fillvalue = " "):
+                if len(num) * 10 == i:
+                    pass
+                
+        
+        #print(line)
+
+
+test(withdrawBalances)
+'''
+
+################################################################################################################################
+'''
+### THIS MADE A LIST OF "o"'s to print out. ###
+
+numbers = [10, 20, 45]
+total = 75
+
+def test(numbers):
+    #Testing how to get percentages for ASCII UI
+    
+    formatLine = []
+    for n in numbers:
+        roundNum = round((n / total) * 100, -1) #10.0, 30.0, 60.0
+        # str(roundNum[0]) as to be able to index into it. int(...) to be able to multiply by that number.
+        formatLine.append( "o" * int(str(roundNum)[0]) )
+        print(formatLine) #[o, ooo, oooooo]
+    
+    for n in formatLine:
+        print(n)
+        print( formatLine.count("o") )
+        #print(type(n))
+        
+        
+    for i in range(100, -10, -10):
+        line = "{:>3}|".format(i)
+
+#test(numbers)
+'''
 
 ################################################################################################################################
 #https://stackoverflow.com/questions/19622169/vertical-print-string-python3-2
