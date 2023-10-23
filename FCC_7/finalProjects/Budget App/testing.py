@@ -91,22 +91,46 @@ def create_spend_chart(categories):
         print(base + i)
 
 ##########
+    # Line 100 - 10
  
     numbers = [ "{:>3}|".format(i) for i in range(100, -10, -10)] #['100|', ' 90|', ' 80|', ' 70|', ' 60|', ' 50|', ' 40|', ' 30|', ' 20|', ' 10|', '  0|']
-    highNum = max([ len(i) for i in withdrawPercents ]) #5
+    highNum = max([ len(i)*2 for i in withdrawPercents ]) #5
 
     
     for i in numbers: # 100, 90, 80, 70, 60, 50, 40, 30, 20, 10, 0
         
         for x in withdrawPercents: # ooooo, ooo, oo
-            alpha = list(x) #['o', 'o', 'o', 'o', 'o'] || ['o', 'o', 'o'] || ['o', 'o']
+            #alpha = list(x) #['o', 'o', 'o', 'o', 'o'] || ['o', 'o', 'o'] || ['o', 'o']
 
             if len(x)*10 == int(i[0:3]):
                 counter = len(x) - 1
-                while counter > 0:
+
+                while counter != -1:
                     i = i + " " + x[counter]
+                    
                     counter -= 1
-        print(i)
+        cacheNum = [i]
+        #print(cacheNum)
+
+testList = [ "{:>3}|".format(i) for i in range(100, -10, -10)]  ##['100|', ' 90|', ...
+newList = [ "0123456789" for i in range(len(testList) -1 )] #Should be the length of the category * 2 (for spaces).
+numbers = [50]
+for count, i in enumerate(newList):
+    print(i)
+    for x in numbers:
+        if x/10 == count:
+            #i[count] = "o"
+            pass
+            
+        
+
+
+
+
+
+
+
+#print(testList)
                 
                 
 
