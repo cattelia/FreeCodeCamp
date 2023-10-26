@@ -13,6 +13,7 @@ class Bank:
 
     def __init__(self, name, balance=None):
         self.name = name
+        #Simulate ledger
         if balance is None:
             balance = []
             self.balance = balance
@@ -45,39 +46,45 @@ def create_spend_chart(categories):
         ''' In: [cat, dog, auto] --> Out: cat '''
 
         # Clear cache for next category
-        numCache = 0
+        categoryTotal = 0
         for entry in category.get_balance():
             if str(entry).startswith("-"):
                 #Make it a positive number
-                numCache += (-1)*entry
-                total += (-1)*entry
+                categoryTotal += abs(entry)
+                total += abs(entry)
 
-        withdrawBalances.append(numCache)
+        withdrawBalances.append(categoryTotal)
 
-    print(withdrawBalances)                                                         ##### PRINT #####
+    print("Withdraws", withdrawBalances)                                                         ##### PRINT #####
 
     for i in withdrawBalances:
         roundNum = round((i / total) * 100, -1) #Round to the 10th
+        withdrawPercents.append(int(roundNum))
         # Get "o" percent representation. Checking for 100 before moving to 90 - 10
-        asciiRep = "oooooooooo" if roundNum == 100 else "o" * int(str(roundNum)[0])
-        withdrawPercents.append(asciiRep) #["ooo", "ooooo", "oo"]
-
+        #asciiRep = "oooooooooo" if roundNum == 100 else "o" * int(str(roundNum)[0])
+        #withdrawPercents.append(asciiRep) #["ooo", "ooooo", "oo"]
+    
+    print("Percents ", withdrawPercents)
 
     ### Visual output ###
 
     #Percentage table
     print("Percentage spent by category")
-    for i in range(100, -10, -10):
+    for i in range(100, -1, -10):
         line = "{:>3}|".format(i)
 
         # Line 100 - 10
-        
-
+        for val in withdrawPercents:
+            if val >= i:
+                line += " o"
 
         # Line - 0
+        '''
         if str(i).startswith("0"):
             line = line + (" o" * len(categories))
+        '''
         print(line)
+        
 
     #Dashed line
     print("    " + ("--" * len(categories)) + "--")
@@ -90,37 +97,7 @@ def create_spend_chart(categories):
     for i in rows:
         print(base + i)
 
-##########
-    # Line 100 - 10
- 
-    numbers = [ "{:>3}|".format(i) for i in range(100, -10, -10)] #['100|', ' 90|', ' 80|', ' 70|', ' 60|', ' 50|', ' 40|', ' 30|', ' 20|', ' 10|', '  0|']
-    highNum = max([ len(i)*2 for i in withdrawPercents ]) #5
 
-    
-    for i in numbers: # 100, 90, 80, 70, 60, 50, 40, 30, 20, 10, 0
-        
-        for x in withdrawPercents: # ooooo, ooo, oo
-            #alpha = list(x) #['o', 'o', 'o', 'o', 'o'] || ['o', 'o', 'o'] || ['o', 'o']
-
-            if len(x)*10 == int(i[0:3]):
-                counter = len(x) - 1
-
-                while counter != -1:
-                    i = i + " " + x[counter]
-                    
-                    counter -= 1
-        cacheNum = [i]
-        #print(cacheNum)
-
-testList = [ "{:>3}|".format(i) for i in range(100, -10, -10)]  ##['100|', ' 90|', ...
-newList = [ "0123456789" for i in range(len(testList) -1 )] #Should be the length of the category * 2 (for spaces).
-numbers = [50]
-for count, i in enumerate(newList):
-    print(i)
-    for x in numbers:
-        if x/10 == count:
-            #i[count] = "o"
-            pass
             
         
 
@@ -164,7 +141,41 @@ create_spend_chart(categories)
         #print(base + " ".join(x))
 
 '''
+#########################################################################################################
+    # Line 100 - 10
+ 
+    numbers = [ "{:>3}|".format(i) for i in range(100, -10, -10)] #['100|', ' 90|', ' 80|', ' 70|', ' 60|', ' 50|', ' 40|', ' 30|', ' 20|', ' 10|', '  0|']
+    highNum = max([ len(i)*2 for i in withdrawPercents ]) #5
 
+    
+    for i in numbers: # 100, 90, 80, 70, 60, 50, 40, 30, 20, 10, 0
+        
+        for x in withdrawPercents: # ooooo, ooo, oo
+            #alpha = list(x) #['o', 'o', 'o', 'o', 'o'] || ['o', 'o', 'o'] || ['o', 'o']
+
+            if len(x)*10 == int(i[0:3]):
+                counter = len(x) - 1
+
+                while counter != -1:
+                    i = i + " " + x[counter]
+                    
+                    counter -= 1
+        cacheNum = [i]
+        #print(cacheNum)
+
+testList = [ "{:>3}|".format(i) for i in range(100, -10, -10)]  ##['100|', ' 90|', ...
+newList = [ "0123456789" for i in range(len(testList) -1 )] #Should be the length of the category * 2 (for spaces).
+numbers = [50]
+for count, i in enumerate(newList):
+    print(i)
+    for x in numbers:
+        if x/10 == count:
+            #i[count] = "o"
+            pass
+
+            
+#########################################################################################################
+            
 
 ### THIS MADE A LIST OF %'s to print out. ###
 withdrawBalances = [10, 20, 45]
