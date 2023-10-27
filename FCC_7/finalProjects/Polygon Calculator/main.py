@@ -40,9 +40,9 @@ class Rectangle:
         if self.get_area() > 50:
             return "Too big for picture."
         else:
-            for w in range(self.width):
-                # -1 in range due to indexing starting at 0
-                for h in range(self.height - 1):
+            for w in range(self.height):
+                # -1 in range due to compensate for w's "*"
+                for h in range(self.width - 1):
                     print("*", end = "")
                 print("*")
         
@@ -50,8 +50,9 @@ class Rectangle:
 
     def get_amount_inside(self, shape):
         # Calculate how many times (square or rectangle) shape can fit into the passed shape.
-        # If rect:4x8 could fit in 2 squares:4x4
-        pass
+        # If rect:16x8 could fit in 8 squares:4x4
+        russianDoll = self.get_area() // shape.get_area()
+        return russianDoll
 
 
 class Square(Rectangle):
@@ -60,25 +61,27 @@ class Square(Rectangle):
     def __init__(self, width):
         # equivalent to `Rectangle.__init__(self, width, width)`
         super().__init__(width, width)
+        #   -> self.width = width
+        #   -> self.height = width
 
     def __str__(self):
+        # Print representation of the class
         return "Square(side={})".format(self.width)
 
     def set_side(self, width):
         # Reset side to new value
+        # equivalent to `Rectangle.__init__(self, width, width)`
         return super().__init__(width, width)
 
 
-rect = Rectangle(7, 5)
+rect = Rectangle(10, 5)
 print(rect.get_area())
 rect.set_height(3)
 print(rect.get_perimeter())
-print(rect.get_diagonal())
 print(rect)
 print(rect.get_picture())
 
 sq = Square(9)
-print(sq.get_picture())
 print(sq.get_area())
 sq.set_side(4)
 print(sq.get_diagonal())
@@ -87,9 +90,9 @@ print(sq.get_picture())
 
 rect.set_height(8)
 rect.set_width(16)
-#print(rect.get_amount_inside(sq))
+print(rect.get_amount_inside(sq))
 
-
+''' Resources '''
 # https://bobbyhadz.com/blog/python-call-class-method-from-another-class
 # OOP Inheritance
 #   https://www.pythonlikeyoumeanit.com/Module4_OOP/Inheritance.html 
