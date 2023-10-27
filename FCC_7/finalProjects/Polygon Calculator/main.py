@@ -5,25 +5,31 @@ class Rectangle:
         self.height = height
 
     def __str__(self):
+        # Print representation of the class
         return "Rectangle(width={}, height={})".format(self.width, self.height)
     
     def set_width(self, width):
+        # Reset width to new value
         self.width = width
         return self.width
 
     def set_height(self, height):
+        # Reset height to new value
         self.height = height
         return self.height
 
     def get_area(self):
+        # Return the area of the shape
         area = (self.width * self.height)
         return area
 
     def get_perimeter(self):
+        # Return the perimeter of the shape
         perimeter = (2 * self.width) + (2 * self.height)
         return perimeter
 
     def get_diagonal(self):
+        # Return the diagonal of the shape
         diagonal = (self.width ** 2 + self.height ** 2) ** .5
         return diagonal
 
@@ -48,31 +54,31 @@ class Rectangle:
         pass
 
 
-rect = Rectangle(10, 5)
+class Square(Rectangle):
+    # Square to inherit all of Rectangle and then some: new __str__ and set_side() method.
+    
+    def __init__(self, width):
+        # equivalent to `Rectangle.__init__(self, width, width)`
+        super().__init__(width, width)
+
+    def __str__(self):
+        return "Square(side={})".format(self.width)
+
+    def set_side(self, width):
+        # Reset side to new value
+        return super().__init__(width, width)
+
+
+rect = Rectangle(7, 5)
 print(rect.get_area())
 rect.set_height(3)
 print(rect.get_perimeter())
 print(rect.get_diagonal())
 print(rect)
 print(rect.get_picture())
-rect.set_width(3)
-print(rect.get_picture())
 
-
-class Square:
-    
-    def __init__(self, width):
-        self.width = width
-        self.height = width
-    
-    def __str__(self):
-        print("Square(side={})".format(self.width))
-
-    def set_side(self):
-        pass
-
-'''
 sq = Square(9)
+print(sq.get_picture())
 print(sq.get_area())
 sq.set_side(4)
 print(sq.get_diagonal())
@@ -81,5 +87,9 @@ print(sq.get_picture())
 
 rect.set_height(8)
 rect.set_width(16)
-print(rect.get_amount_inside(sq))
-'''
+#print(rect.get_amount_inside(sq))
+
+
+# https://bobbyhadz.com/blog/python-call-class-method-from-another-class
+# OOP Inheritance
+#   https://www.pythonlikeyoumeanit.com/Module4_OOP/Inheritance.html 
