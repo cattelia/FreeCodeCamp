@@ -1,3 +1,4 @@
+
 import prob_calculator
 
 
@@ -30,6 +31,3 @@ probability = prob_calculator.experiment(hat = hat,
 actual = probability
 print(actual)
 #expected = 0.272
-
-
-
