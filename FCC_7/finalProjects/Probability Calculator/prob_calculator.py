@@ -64,6 +64,16 @@ def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
     Return:
         the probability of the experiment
     '''
+
+    # Check to see if we are trying to pull more balls than we have in the hat
+    # If so , return 1.0
+    initialCount = 0
+    for number in hat.contents:
+        initialCount += 1
+    if num_balls_drawn > initialCount:
+        return 1.0    
+    
+
     success = 0
     # Run the experience N times
     for i in range(num_experiments):
@@ -72,7 +82,7 @@ def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
 
         # Look at each hat draw
         collected = hat.draw(num_balls_drawn)
-
+    
         # Compare 'collected' to what we are looking for in 'expected_balls'
         # Every success will be calculated M times
         for color, number in expected_balls.items():
@@ -87,19 +97,11 @@ def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
                 if successCheck == len(expected_balls):
                     success += 1
     
-    print("Total Matches", success)
+    #print("Total Matches", success)
 
-    # Calculate the probability of the permutation of colors to numbers show up in the experiments. Percentage.
-    probability = (success / num_experiments) * 100
+    # Calculate the probability of the permutation of colors to numbers show up in the experiments
+    probability = success / num_experiments
     return probability
-
-
-#hat = Hat(black=6, red=4, green=3)
-#probability = experiment( hat = hat, expected_balls = {"red":2,"green":1}, num_balls_drawn = 5, num_experiments = 2000 )
-
-
-
-
 
 ''' Resources '''
 # Passing multiple values in class initialization
