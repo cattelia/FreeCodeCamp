@@ -1,0 +1,9 @@
+[ ][x][ ][x][ ][ ][x][x][x][ ][x][ ][x][ ][ ][x] - RAM
+[ ][ ][ ][ ][x][x][x][x][x][x][x][x][ ][ ][ ][ ] - Contiguous Memory
+- Single Instruction Multiple Data Vector Processing
+- Effective cache utilization
+
+ Mathematics
+ Plotting
+ Backend: Pandas, Digital Photography
+ Machine Learning - tensors
