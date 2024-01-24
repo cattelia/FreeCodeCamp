@@ -24,22 +24,32 @@ def calculate(list):
     # throw Value error if the list is not equal to 9 numbers.
 
     try:
-        matrix = np.array(list)
-        n_matrix = matrix.reshape(-1, n)
-        new_matrix = n_matrix.tolist()
+        n_matrix = np.array(list)
+        matrix = n_matrix.reshape(-1, n)
+        new_matrix = matrix.tolist()
         print(new_matrix)
 
     except ValueError:
         raise ValueError("List must contain nine numbers.")
 
-    output = {
-        arith: [func(n_matrix, axis=i).tolist() for i in [0, 1, None]]
+    dict_output = {
+        arith: [func(matrix, axis=i).tolist() for i in [0, 1, None]]
         for (arith, func) in zip(["mean", "median", "varience", "standard deviation", "max", "min", "sum"],
-                             [np.mean, np.median, np.var, np.std, np.max, np.min, np.sum])
+                             [np.mean, np.median, np.var, np.std, np.amax, np.amin, np.sum])
     }
 
+    
+    output = {
 
-    print(type(output))
+        "mean" : [np.mean(matrix, axis=0).tolist(), np.mean(matrix, axis=1).tolist(),  np.mean(matrix).tolist()]  ,
+        "variance" : [np.var(matrix, axis=0).tolist(), np.var(matrix, axis=1).tolist(), np.var(matrix).tolist()],
+        "standart deviation" : [np.std(matrix, axis=0).tolist(), np.std(matrix, axis=1).tolist(), np.std(matrix).tolist()],
+        "max" : [ np.amax(matrix, axis=0).tolist(), np.amax(matrix, axis=1).tolist(), np.amax(matrix).tolist()],
+        "min" : [np.amin(matrix, axis=0).tolist(), np.amin(matrix, axis=1).tolist(), np.amin(matrix).tolist()],
+        "sum" : [np.sum(matrix, axis=0).tolist(), np.sum(matrix, axis=1).tolist(), np.sum(matrix).tolist()]
+    }
+
+    print(output)
     
     '''# This. is. ugly.
     men_c = [np.mean(n_matrix[:, i]) for i in range(n)] # columns
