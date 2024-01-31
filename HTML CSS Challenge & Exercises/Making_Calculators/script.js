@@ -5,9 +5,9 @@ let previousOperator;
 const screen = document.querySelector('.screen');
 
 function buttonClick(value){
-    if (isNaN(value)) {
+    if(isNaN(value)){
         handleSymbol(value);
-    } else {
+    }else{
         handleNumber(value);
     }
     screen.innerText = buffer;
@@ -33,13 +33,13 @@ function handleSymbol(symbol){
         case '←':
             if(buffer.length === 1){
                buffer = '0'; 
-            } else {
-                buffer = buffer.toString(0, buffer.length - 1);
+            }else{
+                buffer = buffer.substring(0, buffer.length - 1);
             }
             break;
 
         case '+':
-        case '-':
+        case '−':
         case '×':
         case '÷':
             handleMath(symbol);
@@ -56,7 +56,7 @@ function handleMath(symbol){
 
     if(runningTotal === 0){
         runningTotal = intBuffer;
-    } else {
+    }else{
         flushOperation(intBuffer);
     }
     previousOperator = symbol;
@@ -66,11 +66,11 @@ function handleMath(symbol){
 function flushOperation(intBuffer){
     if(previousOperator === '+'){
         runningTotal += intBuffer;
-    } else if(previousOperator === '-'){
+    }else if(previousOperator === '−'){
         runningTotal -= intBuffer;
-    } else if(previousOperator === '×'){
+    }else if(previousOperator === '×'){
         runningTotal *= intBuffer;
-    } else if(previousOperator === '÷'){
+    }else if(previousOperator === '÷'){
         runningTotal /= intBuffer;
     }
 }
@@ -78,7 +78,7 @@ function flushOperation(intBuffer){
 function handleNumber(numberString){
     if(buffer === '0'){
         buffer = numberString;
-    } else {
+    }else{
         buffer += numberString;
     }
 }

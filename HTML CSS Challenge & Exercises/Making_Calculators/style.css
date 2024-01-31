@@ -24,6 +24,8 @@ body{
 .wrapper{
     backdrop-filter: blur(5.5px);
     -webkit-backdrop-filter: blur(5.5px);
+    background: rgba(255,255,255,0.75);
+    border: 1px solid rgba(255, 255, 255, 0.01);
     border-radius: 16px;
     box-shadow: 0 4px 30px rgba(35, 35, 35, 0.1);
     color: #232323;
@@ -48,7 +50,7 @@ body{
     overflow: auto;
     padding: 20px;
     text-align: right;
-    width: 325px;
+    width: 326px;
 }
 
 .calc-button-row{
@@ -87,13 +89,13 @@ body{
     color: inherit;
 }
 
+.calc-button:hover{
+    background-color: inherit;
+}
+
 .calc-button:last-child:active{
     background-color: #ffef78;
     color: #d72890;
-}
-
-.calc-button:hover{
-    background-color: inherit;
 }
 
 .calc-button:active{
