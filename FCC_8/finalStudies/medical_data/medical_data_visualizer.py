@@ -59,8 +59,6 @@ def draw_heat_map():
     # Generate a mask for the upper triangle
     mask = np.triu(corr)
 
-
-
     # Set up the matplotlib figure
     fig, ax = plt.subplots(figsize=(10, 12))
 
