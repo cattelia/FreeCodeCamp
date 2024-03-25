@@ -10,22 +10,32 @@ import socket
 ''' AF_INET == IPv4
     AF_INET6 == IPv6 '''
 # choose socket family and the socket type
-server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # You should be able to automatically get the hostname/IP address
-host = socket.gethostbyname()
-port = 444
+host = socket.gethostname() #>> Amaterasu
+ipaddr = socket.gethostbyname(host) #>> IP Address
+port = 5500
+''' 
+The class made us use port 444, which I was getting a system error #13.
+I have since found out that  all ports <1024 are system reserved and you have to 
+be running as a "priviledged" user. 
 
-server_socket.bind((host, port))
+Curious thing though, when I try to run this program as sudo python3 TCPServer.py, 
+trying to give this root priviledges, it does not work. In turn, I changed the port
+to 1024 to address the problem. Worked just fine.
+'''
+
+serversocket.bind((ipaddr, port))
 
 # setup a listener for however many you are looking to listen to
-server_socket.listen(3)
+serversocket.listen(3)
 while True:
-    client_socket, address = server_socket.accept()
+    clientsocket, address = serversocket.accept()
     print("received connection from {}").format(str(address))
-    message = "Welcome to the server./n"
-    client_socket.send(message)
-    client_socket.close()
+    message = "Welcome to the server.\n"
+    clientsocket.send(message)
+    clientsocket.close()
 
 
 

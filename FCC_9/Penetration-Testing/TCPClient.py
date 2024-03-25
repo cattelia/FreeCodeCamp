@@ -3,14 +3,17 @@
 #!/usr/bin/python3
 import socket
 
-client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+clientsocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-client_host = socket.gethostname()
-client_port = 444
+host = socket.gethostname()
+ipaddr = socket.gethostbyname(host)
+port = 5500
 
-client_socket.connect((client_host, client_port))
-message = client_socket.recv(1024) #maximum amount of data that is allowed to come through the TCP protocol
+clientsocket.connect((ipaddr, port))
+message = clientsocket.recv(1024) #maximum amount of data that is allowed to come through the TCP protocol
 
-client_socket.close()
+clientsocket.close()
+
 print(message.decode('ascii'))
+
 
