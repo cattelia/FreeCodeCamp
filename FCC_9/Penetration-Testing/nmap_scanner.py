@@ -9,8 +9,10 @@ SCANNER = nmap.PortScanner()
 CHECK = True
 print("Welcome")
 
-#IPADDR = input("Please enter the IP Address you want to scan: ")
-#print("The IP you entered was {}".format(str(IPADDR)))
+# Local IP: 192.168.1.74
+# Ask user for the IP Address they are interested in scanning
+IPADDR = input("Please enter the IP Address you want to scan: ")
+print("The IP you entered was: {}".format(IPADDR))
 #type(IPADDR)
 
 # Dictionary to easily update scanning options for future scaling of NMAP features
@@ -27,7 +29,7 @@ resp = input("\n1) {}\n2) {}\n3) {}\n4) {}\nPlease enter the type of scan you wa
     choices[2],
     choices[3],
     choices[4]
-))
+)).strip(" ,/.") #Strip space, comma, forward slash, and period to avoid `ValueError` exception.
 
 # While True, ask the user what they want to do.
 while CHECK:
@@ -44,8 +46,8 @@ while CHECK:
         print("\nYou've selected: {}".format(choices[int(resp)]))
         CHECK = False
 
-    # If KeyError is caught, tell them that they need to entire from the options provided above.
-    except KeyError:
+    # If KeyError is caught, tell them that they need to enter from the options provided above.
+    except (KeyError, ValueError):
         # Using Fore to color the text Red so they immediately notice it.
         print(Fore.RED + "\nPlease choose a valid option from the list above...")
         # Give them 1 second to absorb the message and then feed the options again.
@@ -55,6 +57,44 @@ while CHECK:
             choices[2],
             choices[3],
             choices[4]
-        ))
+        )).strip(" ,/.")
+
+        '''except ValueError:
+        print("Something went wrong.")'''
+
     else:
-        pass
+
+        if int(resp) == 3: # TCP
+            #print("NMAP Version: {}.{}".format(SCANNER.nmap_version()[0], SCANNER.nmap_version()[1]))
+            print(f"NMAP Version: {SCANNER.nmap_version()[0]}.{SCANNER.nmap_version()[1]}")
+            # Scan the IP Address that user provided.
+            # Scanning from Port 1 to Port 1024
+            # -v Increase verbosity level (use -vv or more for greater effect)
+            #-sS/sT/sA/sW/sM: TCP SYN/Connect()/ACK/Window/Maimon scans
+            SCANNER.scan(IPADDR, "1-1024", "-v -sS")
+            print(SCANNER.scaninfo())
+            print("IP Status: {}".format(SCANNER[IPADDR].state()))
+            print(SCANNER[IPADDR].all_protocols())
+            for i in SCANNER[IPADDR]["tcp"].keys():
+                print("Open port found: {}".format(i))
+
+        elif int(resp) == 2: # UDP
+            #print("NMAP Version: {}.{}".format(SCANNER.nmap_version()[0], SCANNER.nmap_version()[1]))
+            print(f"NMAP Version: {SCANNER.nmap_version()[0]}.{SCANNER.nmap_version()[1]}")
+            SCANNER.scan(IPADDR, "1-1024", "-v -sU")
+            print(SCANNER.scaninfo())
+            print("IP Status: {}".format(SCANNER[IPADDR].state()))
+            print(SCANNER[IPADDR].all_protocols())
+            for i in SCANNER[IPADDR]["udp"].keys():
+                print("Open port found: {}".format(i))
+
+        elif int(resp) == 4: # Comprehensive
+            #print("NMAP Version: {}.{}".format(SCANNER.nmap_version()[0], SCANNER.nmap_version()[1]))
+            print(f"NMAP Version: {SCANNER.nmap_version()[0]}.{SCANNER.nmap_version()[1]}")
+
+            SCANNER.scan(IPADDR, "1-1024", "-v -sS -sV -sC -A -O")
+            print(SCANNER.scaninfo())
+            print("IP Status: {}".format(SCANNER[IPADDR].state()))
+            print(SCANNER[IPADDR].all_protocols())
+            for i in SCANNER[IPADDR]["tcp"].keys():
+                print("Open port found: {}".format(i))
