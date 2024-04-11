@@ -38,7 +38,10 @@ async function getStock(stock) {
   );
   const {symbol, latestPrice} = await response.json();
   return {symbol, latestPrice};
-}
+}   
+
+
+
 
 module.exports = function (app) {
 
