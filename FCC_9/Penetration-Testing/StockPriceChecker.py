@@ -1,11 +1,4 @@
-# YcOZPNhykQqAE2Kb DB password
-# cattelia : YcOZPNhykQqAE2Kb
-# URI Link: "mongodb+srv://cattelia:YcOZPNhykQqAE2Kb@cluster.xqwz3kx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster"
-# mongodb+srv://cattelia:<password>@cluster.xqwz3kx.mongodb.net/
-# mongodb+srv://cattelia:YcOZPNhykQqAE2Kb@cluster.xqwz3kx.mongodb.net/
-# 24/04/10: 76.146.226.58/32
 
-'''
 
 
 api.js>>>
