@@ -17,3 +17,15 @@ Image here
 <br>
 
 ![alt text](image-4.png)
+
+---
+
+# <span style="color:teal">Solution</span>
+
+```python
+
+```
+
+<br>
+
+![alt text](image-6.png)
