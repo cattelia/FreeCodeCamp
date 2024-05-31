@@ -3,6 +3,9 @@
     src: url(fonts/Poppins-Regular.ttf) format('truetype');
     font-weight: normal;
 }
+html{
+    padding-bottom: 100px;
+}
 
 * {
     color: #ccc;
@@ -14,7 +17,7 @@
 }
 
 img {
-    max-width: 100%;
+    max-width: 75%;
     object-fit: contain;
     display: block;
     margin: 0 auto;
@@ -38,12 +41,41 @@ main{
 }
 
 #headline {
-    margin: 2%;
+    margin-top: 2%;
     color: #D0122E;
     text-align: center;
 }
 
+p, a{
+ color: #D0122E;
+ font-size: 1rem;
+ text-align: center;
+ margin: 0;
+}
 
+.container {
+    display: flex;
+    justify-content: space-between;
+    margin: 1em;
+    align-items: center;
+    padding-left: 25px;
+  }
 
+.item {
+    padding: 25px;
+
+  }
+
+.item p {
+    font-size: 1.5rem;
+  }
   
+.item img {
+    min-width: 100%;
+}
+
+footer {
+text-align: center;
+font-style: bold;
+}
   
