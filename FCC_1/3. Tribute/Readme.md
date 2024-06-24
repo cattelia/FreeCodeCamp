@@ -1,4 +1,4 @@
-# Objective:
+# Objective: Tribute Page
 
 ### Build an app that is functionally similar to https://tribute-page.freecodecamp.rocks.
 
@@ -18,25 +18,27 @@ _Note: Be sure to add <link rel="stylesheet" href="styles.css"> in your HTML to 
 
 ## Tests:
 
-- <input type="checkbox" checked/> : You should have a main element with an id of main.
-- <input type="checkbox" checked/> : Your `#img-div`, `#image`, `#img-caption`, `#tribute-info`, and `#tribute-link` should all be descendants of #main.
-- <input type="checkbox" checked/> : You should have an element with an `id` of `title`.
-- <input type="checkbox" checked/> : Your `#title` should not be empty.
-- <input type="checkbox" checked/> : You should have a `figure` or `div` element with an `id` of `img-div`.
-- <input type="checkbox" checked/> : You should have an `img` element with an `id` of `image`.
-- <input type="checkbox" checked/> : Your #image should be a descendant of #`img-div`.
-- <input type="checkbox" checked/> : You should have a `figcaption` or `div` element with an `id` of `img-caption`.
-- <input type="checkbox" checked/> : Your `#img-caption` should be a descendant of `#img-div`.
-- <input type="checkbox" checked/> : Your `#img-caption` should not be empty.
-- <input type="checkbox" checked/> : You should have an element with an `id` of `tribute-info`.
-- <input type="checkbox" checked/> : Your `#tribute-info` should not be empty.
-- <input type="checkbox" checked/> : You should have an a element with an `id` of `tribute-link`.
-- <input type="checkbox" checked/> : Your `#tribute-lin`k should have an `href` attribute and value.
-- <input type="checkbox" checked/> : Your `#tribute-link` should have a target attribute set to `\_blank`.
-- <input type="checkbox" checked/> : Your `img` element should have a display of `block`.
-- <input type="checkbox" checked/> : Your `#image` should have a `max-width` of `100%`.
-- <input type="checkbox" checked/> : Your `#image` should have a `height` of `auto`.
-- <input type="checkbox" checked/> : Your `#image` should be centered within its parent.
+```
+Passed:You should have a main element with an id of main.
+Passed:Your #img-div, #image, #img-caption, #tribute-info, and #tribute-link should all be descendants of #main.
+Passed:You should have an element with an id of title.
+Passed:Your #title should not be empty.
+Passed:You should have a figure or div element with an id of img-div.
+Passed:You should have an img element with an id of image.
+Passed:Your #image should be a descendant of #img-div.
+Passed:You should have a figcaption or div element with an id of img-caption.
+Passed:Your #img-caption should be a descendant of #img-div.
+Passed:Your #img-caption should not be empty.
+Passed:You should have an element with an id of tribute-info.
+Passed:Your #tribute-info should not be empty.
+Passed:You should have an a element with an id of tribute-link.
+Passed:Your #tribute-link should have an href attribute and value.
+Passed:Your #tribute-link should have a target attribute set to _blank.
+Passed:Your img element should have a display of block.
+Passed:Your #image should have a max-width of 100%.
+Passed:Your #image should have a height of auto.
+Passed:Your #image should be centered within its parent.
+```
 
 <img src="img/Preview.JPG">
 <img src="img/Preview1.JPG">
